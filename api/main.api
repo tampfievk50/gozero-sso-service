@@ -1,0 +1,42 @@
+syntax = "v1"
+
+import "base.api"
+
+type Job {
+	//         ID         uint       `json:"id"`
+	Name       string `json:"name"`
+	Expression string `json:"expression"`
+	Status     string `json:"status"`
+// LastRun    *time.Time `json:"last_run"`
+// NextRun    *time.Time `json:"next_run"`
+}
+
+@server (
+	prefix:     /v1
+	jwt:        Auth
+	group:      job
+	middleware: AuthMiddleware
+)
+service main {
+	@handler StartJobHandler
+	post /jobs/start/:id (Job) returns (Response)
+
+	@handler StopJobHandler
+	post /jobs/stop/:id (Job) returns (Response)
+
+	@handler GetAllJobsHandler
+	get /jobs returns (Response)
+
+	@handler GetJobHandler
+	get /jobs/:id (IdPathRequest) returns (Response)
+
+	@handler UpdateJobHandler
+	put /jobs/update/:id (IdPathRequest) returns (Response)
+
+	@handler ResumeJobHandler
+	put /jobs/:id (IdPathRequest) returns (Response)
+
+	@handler DeleteJobHandler
+	delete /jobs/:id (IdPathRequest) returns (Response)
+}
+

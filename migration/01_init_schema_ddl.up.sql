@@ -1,0 +1,193 @@
+-- Sequence Definition
+
+DROP SEQUENCE IF EXISTS permission_seq;
+
+CREATE SEQUENCE permission_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- role_seq definition
+
+DROP SEQUENCE IF EXISTS role_seq;
+
+CREATE SEQUENCE role_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+	CACHE 1
+	NO CYCLE;
+
+
+-- user_seq definition
+
+DROP SEQUENCE IF EXISTS user_seq;
+
+CREATE SEQUENCE user_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1
+    NO CYCLE;
+
+-- resource_seq definition
+
+DROP SEQUENCE IF EXISTS resource_seq;
+
+CREATE SEQUENCE resource_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1
+	NO CYCLE;
+
+-- resource_property_seq definition
+
+DROP SEQUENCE IF EXISTS resource_property_seq;
+
+CREATE SEQUENCE resource_property_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1
+	NO CYCLE;
+
+-- "permission" definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS "permission";
+
+CREATE TABLE "permission" (
+    id int8 NOT NULL DEFAULT nextval('permission_seq'::regclass),
+    "name" varchar(255) NULL,
+    description varchar(255) NULL,
+    path varchar(255) NULL,
+    action varchar(255) NULL,
+    created_at timestamp(6) NULL,
+    updated_at timestamp(6) NULL,
+    deleted_at timestamp(6) NULL,
+    created_by int8 NULL,
+    updated_by int8 NULL,
+    deleted_by int8 NULL,
+    CONSTRAINT permission_pkey PRIMARY KEY (id)
+);
+
+-- "resource" definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS "resource";
+
+CREATE TABLE "resource" (
+    id int8 NOT NULL DEFAULT nextval('resource_seq'::regclass),
+    "name" varchar(255) NULL,
+    description varchar NULL,
+    created_at timestamp(6) NULL,
+    updated_at timestamp(6) NULL,
+    deleted_at timestamp(6) NULL,
+    created_by int8 NULL,
+    updated_by int8 NULL,
+    deleted_by int8 NULL,
+    CONSTRAINT resource_pkey PRIMARY KEY (id)
+);
+
+-- "resource_properties" definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS "resource_property";
+
+CREATE TABLE "resource_property" (
+    id int8 NOT NULL DEFAULT nextval('resource_property_seq'::regclass),
+    "name" varchar(255) NULL,
+    "address" TEXT NULL,
+    "city" TEXT NULL,
+    "province" TEXT NULL,
+    resource_id int8 NOT NULL,
+    description varchar NULL,
+    created_at timestamp(6) NULL,
+    updated_at timestamp(6) NULL,
+    deleted_at timestamp(6) NULL,
+    created_by int8 NULL,
+    updated_by int8 NULL,
+    deleted_by int8 NULL,
+    CONSTRAINT resource_property_pkey PRIMARY KEY (id)
+--     CONSTRAINT "fk_resource_property_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
+);
+
+-- "role" definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS "role";
+
+CREATE TABLE "role" (
+    id int8 NOT NULL DEFAULT nextval('role_seq'::regclass),
+    "name" varchar(255) NULL,
+    description varchar(255) NULL,
+    resource_id int8 NULL,
+    created_at timestamp(6) NULL,
+    updated_at timestamp(6) NULL,
+    deleted_at timestamp(6) NULL,
+    created_by int8 NULL,
+    updated_by int8 NULL,
+    deleted_by int8 NULL,
+    CONSTRAINT role_pkey PRIMARY KEY (id),
+    CONSTRAINT "fk_role_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
+);
+
+-- "user" definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS "user";
+
+CREATE TABLE "user" (
+    id int8 NOT NULL DEFAULT nextval('user_seq'::regclass),
+    username varchar(255) NULL,
+    email varchar(255) NULL,
+    "password" varchar(255) NULL,
+    resource_id int8 NULL,
+    is_supper bool default false,
+    last_ip varchar(255) NULL,
+    last_login timestamp(6) NULL,
+    avatar varchar(255) NULL,
+    created_at timestamp(6) NULL,
+    updated_at timestamp(6) NULL,
+    deleted_at timestamp(6) NULL,
+    created_by int8 NULL,
+    date_of_birth timestamp(6) NULL,
+    updated_by int8 NULL,
+    deleted_by int8 NULL,
+    age int4 NULL,
+    gender int4 NOT NULL DEFAULT 0,  -- Gender 1-Male 2-FeMale 3-Other
+    is_deleted bool default false,
+    first_name varchar(255) NULL,
+    last_name varchar(255) NULL,
+    is_active bool default true,
+    CONSTRAINT user_pkey PRIMARY KEY (id),
+    CONSTRAINT "fk_user_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
+);
+
+-- user_role definition
+
+-- Drop table
+
+DROP TABLE IF EXISTS user_role;
+
+CREATE TABLE user_role (
+    user_id int8 NOT NULL,
+    role_id int8 NOT NULL,
+    CONSTRAINT user_role_pkey PRIMARY KEY (role_id, user_id),
+    CONSTRAINT "fk_user_role_user_id" FOREIGN KEY (user_id) REFERENCES "user"(id),
+    CONSTRAINT "fk_user_role_role_id" FOREIGN KEY (role_id) REFERENCES "role"(id)
+);

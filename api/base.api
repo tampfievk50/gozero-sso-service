@@ -1,0 +1,13 @@
+syntax = "v1"
+
+type Response {
+    Code int `json:"code,omitempty"`
+    Msg string `json:"msg,omitempty"`
+    Data interface{} `json:"data,omitempty"`
+    Count int64 `json:"count,omitempty"`
+    UnreadCount int64 `json:"unreadCount,omitempty"`
+}
+
+type IdPathRequest {
+    Id int64 `path:"id,omitempty,optional"`
+}

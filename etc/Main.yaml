@@ -1,0 +1,106 @@
+Rest:
+  Name: main
+  Host: 0.0.0.0
+  Port: 9091
+  CorsOrigins:
+    - "*"
+  Log:
+    Level: info
+    Path: logs
+    Mode: file
+    MaxSize: 20
+    MaxBackups: 10
+    MaxAge: 30
+    Compress: true
+    Rotation: daily
+    KeepDays: 30
+
+Db:
+  Driver: postgres
+  Primary:
+    DatabaseName: "account_service"
+    Host: "localhost"
+    Port: "5432"
+    Username: "bixxi"
+    Password: "bixxi"
+    SearchPath: "account_service,public"
+    TargetSessionAttrs: "primary"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  Replicas:
+    DatabaseName: "account_service"
+    Host: "localhost"
+    Port: "6432"
+    Username: "bixxi"
+    Password: "bixxi"
+    SearchPath: "account_service,public"
+    TargetSessionAttrs: "prefer-standby"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  MaxPoolSize: 20
+  MaxIdleSize: 10
+  MaxLeftTime: 5
+  MigrationDir: "file://migration"
+  LogLevel: 2 # 1 - Silent | 2 - Error | 3 - Warn | 4 - Info
+  PrepareStmt: true
+  SkipDefaultTransaction: true
+  SingularTable: true
+  Sync: true
+  DropTable: false
+  DisableForeignKeyConstraintWhenMigrating: false
+
+Auth:
+  AccessSecret: 4Iicndp4mVUwHEQ3pwycvIUO5NSOLTVd4XPg4krW1zGSuzjIKC8dyAZav0bDNpdR8bYW4smxX1S5iGLZ
+  AccessExpire: 3600
+
+Casx:
+  ModelFile: "etc/casx/model.casbin.conf"
+  PolicyFile: "etc/casx/policy.casbin.csv"
+  EnableLog: true
+  InitPolicy: true
+  TableName: "role_permission"
+
+Redis:
+  Addr: "192.168.19.16:6379"
+  Password: "eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
+  DB: 1
+
+EnableMessaging: true
+
+KqPusherConf:
+  Brokers:
+    - localhost:19092
+    - localhost:29092
+    - localhost:39092
+  Topics:
+    - notify-send-email
+    - notify-send-sms
+    - contract-service-auth-activity
+    - delete-user
+    - iam-auto-resend
+
+KqConsumerConf:
+  Name: account-service
+  Brokers:
+    - localhost:19092
+    - localhost:29092
+    - localhost:39092
+  Group: account-service-group
+  Topic: notify-send-email
+
+Job:
+  UploadPath: ./vtmo
+  VT8x79Table: cdr_queue
+  VTOtherTable: cdr_queue
+FtpVT8x79:
+    Hostname: 192.168.20.51
+    Port: "21"
+    Username: vmgftp
+    Password: Vmg@123
+    BasePath: /vtmo/8x79
+FtpVTOther:
+    Hostname: 192.168.20.51
+    Port: "21"
+    Username: vmgftp
+    Password: Vmg@123
+    BasePath: /vtmo/other
