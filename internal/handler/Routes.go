@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"gozero-sso-service/internal/handler/account"
 	"gozero-sso-service/internal/handler/auth"
 	"gozero-sso-service/internal/handler/role"
+	"gozero-sso-service/internal/handler/user"
 	"gozero-sso-service/internal/svc"
 	"net/http"
 
@@ -21,103 +21,31 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				{
 					Method:  http.MethodPost,
 					Path:    "/account",
-					Handler: account.AccountCreateHandler(serverCtx),
+					Handler: user.CreateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/account",
-					Handler: account.AccountGetPageHandler(serverCtx),
+					Handler: user.GetPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/account/:id",
-					Handler: account.AccountGetHandler(serverCtx),
+					Handler: user.GetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/account/:id",
-					Handler: account.AccountUpdateHandler(serverCtx),
+					Handler: user.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/account/:id",
-					Handler: account.AccountDeleteHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPut,
-					Path:    "/account/:id/state",
-					Handler: account.AccountUpdateStateHandler(serverCtx),
+					Handler: user.DeleteHandler(serverCtx),
 				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.(svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.(svc.ServiceContext).AuthMiddleware},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/send-email/:id",
-					Handler: account.AccountGetHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithPrefix("/test"),
-		rest.WithJwt(serverCtx.(svc.ServiceContext).Config.Auth.AccessSecret),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/account/email",
-				Handler: account.PrivateAccountGetByEmailHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/account/ids",
-				Handler: account.PrivateAccountGetByIdsHandler(serverCtx),
-			},
-		},
-		rest.WithPrefix("/private/api/v1"),
-	)
-
-	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/forget-password",
-				Handler: auth.AuthForgetPasswordHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/is-allow",
-				Handler: auth.AuthIsAllowHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/login",
-				Handler: auth.AuthLoginHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/login-with-secret",
-				Handler: auth.AuthLoginWithSecretHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/resend-otp-with-secret",
-				Handler: auth.AuthResendOtpWithSecretHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/auth/reset-password",
-				Handler: auth.AuthResetPasswordHandler(serverCtx),
-			},
-		},
 		rest.WithPrefix("/v1"),
 	)
 
@@ -128,7 +56,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				{
 					Method:  http.MethodPost,
 					Path:    "/auth/refresh-token",
-					Handler: auth.AuthRefreshTokenHandler(serverCtx),
+					Handler: auth.RefreshTokenHandler(serverCtx),
 				},
 			}...,
 		),
@@ -140,54 +68,29 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			[]rest.Middleware{serverCtx.(svc.ServiceContext).AuthMiddleware},
 			[]rest.Route{
 				{
-					Method:  http.MethodGet,
-					Path:    "/auth/check-session",
-					Handler: auth.AuthCheckSessionHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
-					Path:    "/auth/logout",
-					Handler: auth.AuthLogoutHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/auth/me",
-					Handler: auth.AuthGetMeHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.(svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.(svc.ServiceContext).AuthMiddleware},
-			[]rest.Route{
-				{
 					Method:  http.MethodPost,
 					Path:    "/role",
-					Handler: role.RoleCreateHandler(serverCtx),
+					Handler: role.CreateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/role",
-					Handler: role.RoleGetPageHandler(serverCtx),
+					Handler: role.GetPageHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodGet,
 					Path:    "/role/:id",
-					Handler: role.RoleGetHandler(serverCtx),
+					Handler: role.GetHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodPut,
 					Path:    "/role/:id",
-					Handler: role.RoleUpdateHandler(serverCtx),
+					Handler: role.UpdateHandler(serverCtx),
 				},
 				{
 					Method:  http.MethodDelete,
 					Path:    "/role/:id",
-					Handler: role.RoleDeleteHandler(serverCtx),
+					Handler: role.DeleteHandler(serverCtx),
 				},
 			}...,
 		),

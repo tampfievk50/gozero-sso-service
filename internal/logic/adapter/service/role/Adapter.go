@@ -1,4 +1,4 @@
-package user
+package Role
 
 import (
 	"context"
@@ -15,11 +15,11 @@ type service struct {
 	svcCtx *svc.ServiceContext
 }
 
-func NewUserService() iport.UserService {
+func NewRoleService() iport.RoleService {
 	return &service{}
 }
 
-func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.UserService {
+func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.RoleService {
 	l.ctx = ctx
 	l.svcCtx = svcCtx.(*svc.ServiceContext)
 	l.Logger = logx.WithContext(ctx)
@@ -27,7 +27,7 @@ func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceCon
 }
 
 func init() {
-	app.Register("userService", func() iport.UserService {
-		return NewUserService()
+	app.Register("RoleService", func() iport.RoleService {
+		return NewRoleService()
 	})
 }

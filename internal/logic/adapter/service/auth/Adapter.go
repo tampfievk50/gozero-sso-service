@@ -15,11 +15,11 @@ type service struct {
 	svcCtx *svc.ServiceContext
 }
 
-func NewUserService() iport.UserService {
+func NewAuthService() iport.AuthService {
 	return &service{}
 }
 
-func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.UserService {
+func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.AuthService {
 	l.ctx = ctx
 	l.svcCtx = svcCtx.(*svc.ServiceContext)
 	l.Logger = logx.WithContext(ctx)
@@ -27,7 +27,7 @@ func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceCon
 }
 
 func init() {
-	app.Register("userService", func() iport.UserService {
-		return NewUserService()
+	app.Register("authService", func() iport.AuthService {
+		return NewAuthService()
 	})
 }
