@@ -36,30 +36,6 @@ CREATE SEQUENCE user_seq
     CACHE 1
     NO CYCLE;
 
--- resource_seq definition
-
-DROP SEQUENCE IF EXISTS resource_seq;
-
-CREATE SEQUENCE resource_seq
-    INCREMENT BY 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    START 1
-    CACHE 1
-	NO CYCLE;
-
--- resource_property_seq definition
-
-DROP SEQUENCE IF EXISTS resource_property_seq;
-
-CREATE SEQUENCE resource_property_seq
-    INCREMENT BY 1
-    MINVALUE 1
-    MAXVALUE 9223372036854775807
-    START 1
-    CACHE 1
-	NO CYCLE;
-
 -- "permission" definition
 
 -- Drop table
@@ -81,49 +57,6 @@ CREATE TABLE "permission" (
     CONSTRAINT permission_pkey PRIMARY KEY (id)
 );
 
--- "resource" definition
-
--- Drop table
-
-DROP TABLE IF EXISTS "resource";
-
-CREATE TABLE "resource" (
-    id int8 NOT NULL DEFAULT nextval('resource_seq'::regclass),
-    "name" varchar(255) NULL,
-    description varchar NULL,
-    created_at timestamp(6) NULL,
-    updated_at timestamp(6) NULL,
-    deleted_at timestamp(6) NULL,
-    created_by int8 NULL,
-    updated_by int8 NULL,
-    deleted_by int8 NULL,
-    CONSTRAINT resource_pkey PRIMARY KEY (id)
-);
-
--- "resource_properties" definition
-
--- Drop table
-
-DROP TABLE IF EXISTS "resource_property";
-
-CREATE TABLE "resource_property" (
-    id int8 NOT NULL DEFAULT nextval('resource_property_seq'::regclass),
-    "name" varchar(255) NULL,
-    "address" TEXT NULL,
-    "city" TEXT NULL,
-    "province" TEXT NULL,
-    resource_id int8 NOT NULL,
-    description varchar NULL,
-    created_at timestamp(6) NULL,
-    updated_at timestamp(6) NULL,
-    deleted_at timestamp(6) NULL,
-    created_by int8 NULL,
-    updated_by int8 NULL,
-    deleted_by int8 NULL,
-    CONSTRAINT resource_property_pkey PRIMARY KEY (id)
---     CONSTRAINT "fk_resource_property_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
-);
-
 -- "role" definition
 
 -- Drop table
@@ -134,15 +67,13 @@ CREATE TABLE "role" (
     id int8 NOT NULL DEFAULT nextval('role_seq'::regclass),
     "name" varchar(255) NULL,
     description varchar(255) NULL,
-    resource_id int8 NULL,
     created_at timestamp(6) NULL,
     updated_at timestamp(6) NULL,
     deleted_at timestamp(6) NULL,
     created_by int8 NULL,
     updated_by int8 NULL,
     deleted_by int8 NULL,
-    CONSTRAINT role_pkey PRIMARY KEY (id),
-    CONSTRAINT "fk_role_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
+    CONSTRAINT role_pkey PRIMARY KEY (id)
 );
 
 -- "user" definition
@@ -156,7 +87,6 @@ CREATE TABLE "user" (
     username varchar(255) NULL,
     email varchar(255) NULL,
     "password" varchar(255) NULL,
-    resource_id int8 NULL,
     is_supper bool default false,
     last_ip varchar(255) NULL,
     last_login timestamp(6) NULL,
@@ -174,8 +104,7 @@ CREATE TABLE "user" (
     first_name varchar(255) NULL,
     last_name varchar(255) NULL,
     is_active bool default true,
-    CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT "fk_user_resource_id" FOREIGN KEY (resource_id) REFERENCES "resource"(id)
+    CONSTRAINT user_pkey PRIMARY KEY (id)
 );
 
 -- user_role definition

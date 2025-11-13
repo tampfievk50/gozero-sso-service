@@ -5,6 +5,7 @@ import (
 	"github.com/redis/go-redis/v9"
 	"github.com/tampfievk50/gozero-core-api/casbinx"
 	"github.com/tampfievk50/gozero-core-api/ormx"
+	"github.com/tampfievk50/gozero-core-api/servicecontext"
 	"github.com/zeromicro/go-queue/kq"
 	"github.com/zeromicro/go-zero/rest"
 	"gorm.io/gorm"
@@ -24,7 +25,7 @@ type ServiceContext struct {
 	DB       *gorm.DB
 }
 
-func NewServiceContext(c config.Config) *ServiceContext {
+func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 	db := ormx.InitDB(&c.Db, ormx.WithMigration(map[string]string{}, []interface{}{}))
 
 	rdb := redis.NewClient(&redis.Options{

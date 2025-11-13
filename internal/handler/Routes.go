@@ -13,10 +13,10 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceContextInterface) {
-	server.Use(serverCtx.(svc.ServiceContext).RecoverMiddleware)
+	server.Use(serverCtx.(*svc.ServiceContext).RecoverMiddleware)
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.(svc.ServiceContext).AuthMiddleware},
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
@@ -45,13 +45,13 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				},
 			}...,
 		),
-		rest.WithJwt(serverCtx.(svc.ServiceContext).Config.Auth.AccessSecret),
+		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
 		rest.WithPrefix("/v1"),
 	)
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.(svc.ServiceContext).RefreshTokenMiddleware},
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).RefreshTokenMiddleware},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
@@ -65,7 +65,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 
 	server.AddRoutes(
 		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.(svc.ServiceContext).AuthMiddleware},
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
 			[]rest.Route{
 				{
 					Method:  http.MethodPost,
@@ -94,7 +94,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				},
 			}...,
 		),
-		rest.WithJwt(serverCtx.(svc.ServiceContext).Config.Auth.AccessSecret),
+		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
 		rest.WithPrefix("/v1"),
 	)
 }
