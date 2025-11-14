@@ -1,8 +1,6 @@
 -- Sequence Definition
 
-DROP SEQUENCE IF EXISTS permission_seq;
-
-CREATE SEQUENCE permission_seq
+CREATE SEQUENCE IF NOT EXISTS permission_seq
     INCREMENT BY 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
@@ -13,9 +11,7 @@ CREATE SEQUENCE permission_seq
 
 -- role_seq definition
 
-DROP SEQUENCE IF EXISTS role_seq;
-
-CREATE SEQUENCE role_seq
+CREATE SEQUENCE IF NOT EXISTS role_seq
     INCREMENT BY 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
@@ -26,9 +22,7 @@ CREATE SEQUENCE role_seq
 
 -- user_seq definition
 
-DROP SEQUENCE IF EXISTS user_seq;
-
-CREATE SEQUENCE user_seq
+CREATE SEQUENCE IF NOT EXISTS user_seq
     INCREMENT BY 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
@@ -40,9 +34,7 @@ CREATE SEQUENCE user_seq
 
 -- Drop table
 
-DROP TABLE IF EXISTS "permission";
-
-CREATE TABLE "permission" (
+CREATE TABLE IF NOT EXISTS "permission" (
     id int8 NOT NULL DEFAULT nextval('permission_seq'::regclass),
     "name" varchar(255) NULL,
     description varchar(255) NULL,
@@ -61,9 +53,7 @@ CREATE TABLE "permission" (
 
 -- Drop table
 
-DROP TABLE IF EXISTS "role";
-
-CREATE TABLE "role" (
+CREATE TABLE IF NOT EXISTS "role" (
     id int8 NOT NULL DEFAULT nextval('role_seq'::regclass),
     "name" varchar(255) NULL,
     description varchar(255) NULL,
@@ -80,9 +70,7 @@ CREATE TABLE "role" (
 
 -- Drop table
 
-DROP TABLE IF EXISTS "user";
-
-CREATE TABLE "user" (
+CREATE TABLE IF NOT EXISTS "user" (
     id int8 NOT NULL DEFAULT nextval('user_seq'::regclass),
     username varchar(255) NULL,
     email varchar(255) NULL,
@@ -111,9 +99,7 @@ CREATE TABLE "user" (
 
 -- Drop table
 
-DROP TABLE IF EXISTS user_role;
-
-CREATE TABLE user_role (
+CREATE TABLE IF NOT EXISTS user_role (
     user_id int8 NOT NULL,
     role_id int8 NOT NULL,
     CONSTRAINT user_role_pkey PRIMARY KEY (role_id, user_id),
