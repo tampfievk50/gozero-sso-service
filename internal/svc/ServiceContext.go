@@ -8,7 +8,6 @@ import (
 	"github.com/tampfievk50/gozero-core-api/servicecontext"
 	"github.com/zeromicro/go-queue/kq"
 	"github.com/zeromicro/go-zero/rest"
-	"gorm.io/gorm"
 	"gozero-sso-service/internal/config"
 	"gozero-sso-service/internal/middleware"
 )
@@ -22,11 +21,11 @@ type ServiceContext struct {
 	RedisCli *redis.Client
 	Enforcer *casbin.SyncedEnforcer
 	Pushers  map[string]*kq.Pusher
-	DB       *gorm.DB
+	DB       *ormx.Database
 }
 
 func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
-	db := ormx.InitDB(&c.Db, ormx.WithMigration(map[string]string{}, []interface{}{}))
+	database := ormx.InitDB(&c.Db, ormx.WithMigration(map[string]string{}, []interface{}{}))
 
 	rdb := redis.NewClient(&redis.Options{
 		Addr:     c.Redis.Addr,
@@ -34,7 +33,7 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 		DB:       c.Redis.DB,
 	})
 
-	rbacEnforcer := casbinx.InitRBAC(db, c.Casx)
+	rbacEnforcer := casbinx.InitRBAC(database, c.Casx)
 
 	pushers := map[string]*kq.Pusher{}
 	for _, topic := range c.KqPusherConf.Topics {
@@ -49,6 +48,6 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 		RedisCli:               rdb,
 		Enforcer:               rbacEnforcer,
 		Pushers:                pushers,
-		DB:                     db.Db,
+		DB:                     database,
 	}
 }

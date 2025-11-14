@@ -8,7 +8,7 @@ require (
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/secsy/goftp v0.0.0-20200609142545-aa2de14babf4
-	github.com/tampfievk50/gozero-core-api v0.0.0-20251030084853-9a211257e0b9
+	github.com/tampfievk50/gozero-core-api v0.0.0-20251114070206-38d3dda767f8
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
 	gorm.io/gorm v1.30.0
