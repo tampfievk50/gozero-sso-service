@@ -4,11 +4,9 @@ go 1.24.5
 
 require (
 	github.com/casbin/casbin/v2 v2.109.0
-	github.com/jinzhu/copier v0.4.0
 	github.com/redis/go-redis/v9 v9.11.0
-	github.com/robfig/cron/v3 v3.0.1
 	github.com/secsy/goftp v0.0.0-20200609142545-aa2de14babf4
-	github.com/tampfievk50/gozero-core-api v0.0.0-20251114070206-38d3dda767f8
+	github.com/tampfievk50/gozero-core-api v0.0.0-20251114075334-6f674eb793ce
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
 	gorm.io/gorm v1.30.0
@@ -21,6 +19,7 @@ require (
 	github.com/Azure/go-autorest/autorest/date v0.3.0 // indirect
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
+	github.com/IguteChung/casbin-psql-watcher v1.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.6.1 // indirect
 	github.com/casbin/gorm-adapter/v3 v3.33.0 // indirect

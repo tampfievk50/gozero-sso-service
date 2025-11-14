@@ -59,6 +59,11 @@ Casx:
   EnableLog: true
   InitPolicy: true
   TableName: "role_permission"
+  EnableWatcher: true
+  WatcherChannel: "casbin_rule_update"
+  LocalID:  "sso_service"
+  NotifySelf:     false
+  Verbose:        false
 
 Redis:
   Addr: "192.168.19.16:6379"
