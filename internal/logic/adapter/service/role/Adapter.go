@@ -15,19 +15,28 @@ type service struct {
 	svcCtx *svc.ServiceContext
 }
 
-func NewRoleService() iport.RoleService {
-	return &service{}
-}
-
-func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.RoleService {
-	l.ctx = ctx
-	l.svcCtx = svcCtx.(*svc.ServiceContext)
-	l.Logger = logx.WithContext(ctx)
-	return l
+func NewRoleService(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.RoleService {
+	return &service{
+		ctx:    ctx,
+		svcCtx: svcCtx.(*svc.ServiceContext),
+		Logger: logx.WithContext(ctx),
+	}
 }
 
 func init() {
-	app.Register("RoleService", func() iport.RoleService {
-		return NewRoleService()
+	app.Bind("roleService", func(p *app.MakeParams) iport.RoleService {
+		var (
+			ctx    context.Context
+			svcCtx servicecontext.ServiceContextInterface
+		)
+		for _, v := range *p {
+			switch val := v.(type) {
+			case context.Context:
+				ctx = val
+			case servicecontext.ServiceContextInterface:
+				svcCtx = val
+			}
+		}
+		return NewRoleService(ctx, svcCtx)
 	})
 }

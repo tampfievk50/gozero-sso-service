@@ -15,19 +15,28 @@ type service struct {
 	svcCtx *svc.ServiceContext
 }
 
-func NewAuthService() iport.AuthService {
-	return &service{}
-}
-
-func (l *service) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.AuthService {
-	l.ctx = ctx
-	l.svcCtx = svcCtx.(*svc.ServiceContext)
-	l.Logger = logx.WithContext(ctx)
-	return l
+func NewAuthService(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) iport.AuthService {
+	return &service{
+		ctx:    ctx,
+		svcCtx: svcCtx.(*svc.ServiceContext),
+		Logger: logx.WithContext(ctx),
+	}
 }
 
 func init() {
-	app.Register("authService", func() iport.AuthService {
-		return NewAuthService()
+	app.Bind("authService", func(p *app.MakeParams) iport.AuthService {
+		var (
+			ctx    context.Context
+			svcCtx servicecontext.ServiceContextInterface
+		)
+		for _, v := range *p {
+			switch val := v.(type) {
+			case context.Context:
+				ctx = val
+			case servicecontext.ServiceContextInterface:
+				svcCtx = val
+			}
+		}
+		return NewAuthService(ctx, svcCtx)
 	})
 }

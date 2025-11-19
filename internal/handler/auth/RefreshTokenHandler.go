@@ -11,7 +11,7 @@ import (
 
 func RefreshTokenHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		authService := app.Make[service.AuthService]("authService").SetState(r.Context(), svcCtx)
+		authService := app.Make[service.AuthService]("authService")
 		resp, err := authService.RefreshToken()
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)

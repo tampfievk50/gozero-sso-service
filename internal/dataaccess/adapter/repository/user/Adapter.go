@@ -15,18 +15,28 @@ type repository struct {
 	svcCtx *svc.ServiceContext
 }
 
-func NewJobRepository() oport.UserRepository {
-	return &repository{}
-}
-
-func (r *repository) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) oport.UserRepository {
-	r.ctx = ctx
-	r.svcCtx = svcCtx.(*svc.ServiceContext)
-	return r
+func NewJobRepository(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) oport.UserRepository {
+	return &repository{
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
+		svcCtx: svcCtx.(*svc.ServiceContext),
+	}
 }
 
 func init() {
-	app.Register("userRepository", func() oport.UserRepository {
-		return NewJobRepository()
+	app.Bind("userRepository", func(p *app.MakeParams) oport.UserRepository {
+		var (
+			ctx    context.Context
+			svcCtx servicecontext.ServiceContextInterface
+		)
+		for _, v := range *p {
+			switch val := v.(type) {
+			case context.Context:
+				ctx = val
+			case servicecontext.ServiceContextInterface:
+				svcCtx = val
+			}
+		}
+		return NewJobRepository(ctx, svcCtx)
 	})
 }

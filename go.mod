@@ -6,7 +6,7 @@ require (
 	github.com/casbin/casbin/v2 v2.109.0
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/secsy/goftp v0.0.0-20200609142545-aa2de14babf4
-	github.com/tampfievk50/gozero-core-api v0.0.0-20251114075334-6f674eb793ce
+	github.com/tampfievk50/gozero-core-api v0.0.0-20251119063340-f14dd7bcd9a0
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
 	gorm.io/gorm v1.30.0
