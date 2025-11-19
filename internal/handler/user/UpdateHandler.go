@@ -18,8 +18,8 @@ func UpdateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		userService := app.Make[service.UserService]("userService")
-		err := userService.UpdateUser(&req)
+		userService, err := app.Make[service.UserService]("userService")
+		err = userService.UpdateUser(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

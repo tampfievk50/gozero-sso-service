@@ -18,8 +18,8 @@ func CreateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		roleService := app.Make[service.RoleService]("RoleService")
-		err := roleService.CreateRole(&req)
+		roleService, err := app.Make[service.RoleService]("RoleService")
+		err = roleService.CreateRole(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
