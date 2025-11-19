@@ -64,6 +64,17 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 	)
 
 	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/auth/login",
+				Handler: auth.AuthHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/v1"),
+	)
+
+	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
 			[]rest.Route{
