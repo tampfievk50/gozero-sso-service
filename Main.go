@@ -7,13 +7,12 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 
-	"gozero-sso-service/internal/config"
-	"gozero-sso-service/internal/handler"
-	"gozero-sso-service/internal/svc"
+	"gozero-sso-service/application/config"
+	"gozero-sso-service/application/handler"
+	"gozero-sso-service/application/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
-	_ "gozero-sso-service/internal/bootstrap"
 )
 
 var configFile = flag.String("f", "etc/Main.yaml", "the config file")
