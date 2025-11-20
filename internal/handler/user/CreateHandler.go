@@ -19,7 +19,7 @@ func CreateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 		}
 
 		userService, err := app.Make[service.UserService]("userService", app.WithParam(r.Context()), app.WithParam(svcCtx))
-		err = userService.CreateUser(&req)
+		err = userService.CreateUser(r.Context(), &req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

@@ -19,7 +19,7 @@ func GetPageHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerF
 		}
 
 		userService, err := app.Make[service.UserService]("userService")
-		resp, err := userService.GetAllUsers()
+		resp, err := userService.GetAllUsers(r.Context())
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

@@ -1,6 +1,8 @@
 package job
 
-func (r *repository) DeleteUser(id *uint) error {
+import "context"
+
+func (r *repository) DeleteUser(ctx context.Context, id *uint) error {
 	//TODO implement me
 	panic("implement me")
 }

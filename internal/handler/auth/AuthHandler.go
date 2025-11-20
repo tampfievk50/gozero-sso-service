@@ -18,10 +18,10 @@ func AuthHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
-		userService, err := app.Make[service.UserService]("userService", app.WithParam(r.Context()), app.WithParam(svcCtx))
+		userService, err := app.Make[service.UserService]("userService", app.WithParam(svcCtx))
 		fmt.Println(userService)
-		authService, err := app.Make[service.AuthService]("AuthService")
-		resp, err := authService.Login(&req)
+		authService, err := app.Make[service.AuthService]("AuthService", app.WithParam(svcCtx))
+		resp, err := authService.Login(r.Context(), &req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

@@ -19,7 +19,7 @@ func DeleteHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 		}
 
 		roleService, err := app.Make[service.RoleService]("RoleService")
-		err = roleService.DeleteRole(&req)
+		err = roleService.DeleteRole(r.Context(), &req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

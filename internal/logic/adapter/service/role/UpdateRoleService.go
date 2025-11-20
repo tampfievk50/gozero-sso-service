@@ -1,8 +1,11 @@
 package Role
 
-import "gozero-sso-service/internal/types"
+import (
+	"context"
+	"gozero-sso-service/internal/types"
+)
 
-func (l *service) UpdateRole(RoleDto *types.UpdateRoleRequest) error {
+func (l *service) UpdateRole(ctx context.Context, RoleDto *types.UpdateRoleRequest) error {
 	//TODO implement me
 	panic("implement me")
 }

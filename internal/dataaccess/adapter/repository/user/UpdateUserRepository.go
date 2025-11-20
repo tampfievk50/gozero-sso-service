@@ -1,8 +1,11 @@
 package job
 
-import "gozero-sso-service/internal/dataaccess/dto"
+import (
+	"context"
+	"gozero-sso-service/internal/dataaccess/dto"
+)
 
-func (r *repository) UpdateUser(userDto *dto.UserDTO) error {
+func (r *repository) UpdateUser(ctx context.Context, userDto *dto.UserDTO) error {
 	//TODO implement me
 	panic("implement me")
 }

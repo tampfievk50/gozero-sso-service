@@ -19,7 +19,7 @@ func UpdateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 		}
 
 		roleService, err := app.Make[service.RoleService]("RoleService")
-		err = roleService.UpdateRole(&req)
+		err = roleService.UpdateRole(r.Context(), &req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

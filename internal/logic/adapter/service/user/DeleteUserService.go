@@ -1,8 +1,11 @@
 package user
 
-import "gozero-sso-service/internal/types"
+import (
+	"context"
+	"gozero-sso-service/internal/types"
+)
 
-func (l *service) DeleteUser(req *types.IdPathRequest) error {
+func (l *service) DeleteUser(ctx context.Context, req *types.IdPathRequest) error {
 	//TODO implement me
 	panic("implement me")
 }
