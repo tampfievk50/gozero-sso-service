@@ -40,7 +40,7 @@ Db:
   MaxPoolSize: 20
   MaxIdleSize: 10
   MaxLeftTime: 5
-  MigrationDir: "file://migration"
+  MigrationDir: "file://application/migration"
   LogLevel: 2 # 1 - Silent | 2 - Error | 3 - Warn | 4 - Info
   PrepareStmt: true
   SkipDefaultTransaction: true
@@ -54,8 +54,8 @@ Auth:
   AccessExpire: 3600
 
 Casx:
-  ModelFile: "etc/casx/model.casbin.conf"
-  PolicyFile: "etc/casx/policy.casbin.csv"
+  ModelFile: "application/etc/casx/model.casbin.conf"
+  PolicyFile: "application/etc/casx/policy.casbin.csv"
   EnableLog: true
   InitPolicy: true
   TableName: "role_permission"
