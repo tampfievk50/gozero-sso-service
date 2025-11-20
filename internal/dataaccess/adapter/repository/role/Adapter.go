@@ -15,11 +15,6 @@ type repository struct {
 	svcCtx servicecontext.ServiceContextInterface
 }
 
-func (r *repository) SetState(ctx context.Context, svcCtx servicecontext.ServiceContextInterface) oport.RoleRepository {
-	//TODO implement me
-	panic("implement me")
-}
-
 func (r *repository) GetAllRoles() ([]dto.RoleDTO, error) {
 	//TODO implement me
 	panic("implement me")
