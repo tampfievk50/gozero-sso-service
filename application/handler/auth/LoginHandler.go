@@ -10,7 +10,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func AuthHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
+func LoginHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.UserLoginRequest
 		if err := httpx.Parse(r, &req); err != nil {

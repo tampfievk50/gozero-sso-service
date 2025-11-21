@@ -68,7 +68,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			{
 				Method:  http.MethodPost,
 				Path:    "/auth/login",
-				Handler: auth.AuthHandler(serverCtx),
+				Handler: auth.LoginHandler(serverCtx),
 			},
 		},
 		rest.WithPrefix("/v1"),
