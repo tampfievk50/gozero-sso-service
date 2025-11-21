@@ -50,7 +50,7 @@ Db:
   DisableForeignKeyConstraintWhenMigrating: false
 
 Auth:
-  AccessSecret: 4Iicndp4mVUwHEQ3pwycvIUO5NSOLTVd4XPg4krW1zGSuzjIKC8dyAZav0bDNpdR8bYW4smxX1S5iGLZ
+  AccessSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
   AccessExpire: 3600
 
 Casx:
