@@ -19,7 +19,7 @@ func DeleteHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		err := svcCtx.(*svc.ServiceContext).UserService.DeleteUser(r.Context(), 0)
+		err := svcCtx.(*svc.ServiceContext).Svc.UserService.DeleteUser(r.Context(), 0)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

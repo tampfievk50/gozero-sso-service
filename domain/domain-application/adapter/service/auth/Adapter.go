@@ -2,14 +2,15 @@ package auth
 
 import (
 	iport "gozero-sso-service/domain/domain-core/port/input/service"
+	oport "gozero-sso-service/domain/domain-core/port/output/repository"
 )
 
 type service struct {
-	userService iport.UserService
+	userRepo oport.UserRepository
 }
 
-func NewAuthService(userService iport.UserService) iport.AuthService {
+func NewAuthService(userRepo oport.UserRepository) iport.AuthService {
 	return &service{
-		userService: userService,
+		userRepo: userRepo,
 	}
 }

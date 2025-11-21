@@ -19,7 +19,7 @@ func GetPageHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerF
 			return
 		}
 
-		resp, err := svcCtx.(*svc.ServiceContext).RoleService.GetAllRoles(r.Context())
+		resp, err := svcCtx.(*svc.ServiceContext).Svc.RoleService.GetAllRoles(r.Context())
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

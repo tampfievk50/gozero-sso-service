@@ -19,7 +19,7 @@ func CreateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		err := svcCtx.(*svc.ServiceContext).RoleService.CreateRole(r.Context(), nil)
+		err := svcCtx.(*svc.ServiceContext).Svc.RoleService.CreateRole(r.Context(), nil)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

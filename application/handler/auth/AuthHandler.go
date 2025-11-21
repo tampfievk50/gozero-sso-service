@@ -17,7 +17,7 @@ func AuthHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
-		resp, err := svcCtx.(*svc.ServiceContext).AuthService.Login(r.Context(), nil)
+		resp, err := svcCtx.(*svc.ServiceContext).Svc.AuthService.Login(r.Context(), nil)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {
