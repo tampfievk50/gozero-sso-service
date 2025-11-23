@@ -2,6 +2,7 @@ package consumer
 
 import (
 	"context"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 

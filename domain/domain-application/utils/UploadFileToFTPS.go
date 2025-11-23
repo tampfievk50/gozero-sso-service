@@ -3,11 +3,12 @@ package utils
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/secsy/goftp"
 	"gozero-sso-service/internal/config"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/secsy/goftp"
 )
 
 func UploadFileToFTPS(config *config.FtpInfo, localFilePath string) error {

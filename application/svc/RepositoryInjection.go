@@ -1,10 +1,11 @@
 package svc
 
 import (
-	"github.com/tampfievk50/gozero-core-api/ormx"
 	"gozero-sso-service/dataaccess/adapter/repository/role"
 	"gozero-sso-service/dataaccess/adapter/repository/user"
 	oport "gozero-sso-service/domain/domain-core/port/output/repository"
+
+	"github.com/tampfievk50/gozero-core-api/ormx"
 )
 
 type Repository struct {

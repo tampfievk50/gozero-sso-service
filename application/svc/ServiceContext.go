@@ -2,6 +2,9 @@ package svc
 
 import (
 	"context"
+	"gozero-sso-service/application/config"
+	"gozero-sso-service/application/middleware"
+
 	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
 	"github.com/tampfievk50/gozero-core-api/casbinx"
@@ -10,8 +13,6 @@ import (
 	"github.com/zeromicro/go-queue/kq"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
-	"gozero-sso-service/application/config"
-	"gozero-sso-service/application/middleware"
 )
 
 type ServiceContext struct {

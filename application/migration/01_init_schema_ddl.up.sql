@@ -34,75 +34,218 @@ CREATE SEQUENCE IF NOT EXISTS user_seq
 
 -- Drop table
 
-CREATE TABLE IF NOT EXISTS "permission" (
-    id int8 NOT NULL DEFAULT nextval('permission_seq'::regclass),
-    "name" varchar(255) NULL,
-    description varchar(255) NULL,
-    path varchar(255) NULL,
-    action varchar(255) NULL,
-    created_at timestamp(6) NULL,
-    updated_at timestamp(6) NULL,
-    deleted_at timestamp(6) NULL,
+CREATE TABLE IF NOT EXISTS "permission"
+(
+    id
+    int8
+    NOT
+    NULL
+    DEFAULT
+    nextval
+(
+    'permission_seq'
+    :
+    :
+    regclass
+),
+    "name" varchar
+(
+    255
+) NULL,
+    description varchar
+(
+    255
+) NULL,
+    path varchar
+(
+    255
+) NULL,
+    action varchar
+(
+    255
+) NULL,
+    created_at timestamp
+(
+    6
+) NULL,
+    updated_at timestamp
+(
+    6
+) NULL,
+    deleted_at timestamp
+(
+    6
+) NULL,
     created_by int8 NULL,
     updated_by int8 NULL,
     deleted_by int8 NULL,
-    CONSTRAINT permission_pkey PRIMARY KEY (id)
-);
+    CONSTRAINT permission_pkey PRIMARY KEY
+(
+    id
+)
+    );
 
 -- "role" definition
 
 -- Drop table
 
-CREATE TABLE IF NOT EXISTS "role" (
-    id int8 NOT NULL DEFAULT nextval('role_seq'::regclass),
-    "name" varchar(255) NULL,
-    description varchar(255) NULL,
-    created_at timestamp(6) NULL,
-    updated_at timestamp(6) NULL,
-    deleted_at timestamp(6) NULL,
+CREATE TABLE IF NOT EXISTS "role"
+(
+    id
+    int8
+    NOT
+    NULL
+    DEFAULT
+    nextval
+(
+    'role_seq'
+    :
+    :
+    regclass
+),
+    "name" varchar
+(
+    255
+) NULL,
+    description varchar
+(
+    255
+) NULL,
+    created_at timestamp
+(
+    6
+) NULL,
+    updated_at timestamp
+(
+    6
+) NULL,
+    deleted_at timestamp
+(
+    6
+) NULL,
     created_by int8 NULL,
     updated_by int8 NULL,
     deleted_by int8 NULL,
-    CONSTRAINT role_pkey PRIMARY KEY (id)
-);
+    CONSTRAINT role_pkey PRIMARY KEY
+(
+    id
+)
+    );
 
 -- "user" definition
 
 -- Drop table
 
-CREATE TABLE IF NOT EXISTS "user" (
-    id int8 NOT NULL DEFAULT nextval('user_seq'::regclass),
-    username varchar(255) NULL,
-    email varchar(255) NULL,
-    "password" varchar(255) NULL,
+CREATE TABLE IF NOT EXISTS "user"
+(
+    id
+    int8
+    NOT
+    NULL
+    DEFAULT
+    nextval
+(
+    'user_seq'
+    :
+    :
+    regclass
+),
+    username varchar
+(
+    255
+) NULL,
+    email varchar
+(
+    255
+) NULL,
+    "password" varchar
+(
+    255
+) NULL,
     is_supper bool default false,
-    last_ip varchar(255) NULL,
-    last_login timestamp(6) NULL,
-    avatar varchar(255) NULL,
-    created_at timestamp(6) NULL,
-    updated_at timestamp(6) NULL,
-    deleted_at timestamp(6) NULL,
+    last_ip varchar
+(
+    255
+) NULL,
+    last_login timestamp
+(
+    6
+) NULL,
+    avatar varchar
+(
+    255
+) NULL,
+    created_at timestamp
+(
+    6
+) NULL,
+    updated_at timestamp
+(
+    6
+) NULL,
+    deleted_at timestamp
+(
+    6
+) NULL,
     created_by int8 NULL,
-    date_of_birth timestamp(6) NULL,
+    date_of_birth timestamp
+(
+    6
+) NULL,
     updated_by int8 NULL,
     deleted_by int8 NULL,
     age int4 NULL,
-    gender int4 NOT NULL DEFAULT 0,  -- Gender 1-Male 2-FeMale 3-Other
+    gender int4 NOT NULL DEFAULT 0, -- Gender 1-Male 2-FeMale 3-Other
     is_deleted bool default false,
-    first_name varchar(255) NULL,
-    last_name varchar(255) NULL,
+    first_name varchar
+(
+    255
+) NULL,
+    last_name varchar
+(
+    255
+) NULL,
     is_active bool default true,
-    CONSTRAINT user_pkey PRIMARY KEY (id)
-);
+    CONSTRAINT user_pkey PRIMARY KEY
+(
+    id
+)
+    );
 
 -- user_role definition
 
 -- Drop table
 
-CREATE TABLE IF NOT EXISTS user_role (
-    user_id int8 NOT NULL,
-    role_id int8 NOT NULL,
-    CONSTRAINT user_role_pkey PRIMARY KEY (role_id, user_id),
-    CONSTRAINT "fk_user_role_user_id" FOREIGN KEY (user_id) REFERENCES "user"(id),
-    CONSTRAINT "fk_user_role_role_id" FOREIGN KEY (role_id) REFERENCES "role"(id)
-);
+CREATE TABLE IF NOT EXISTS user_role
+(
+    user_id
+    int8
+    NOT
+    NULL,
+    role_id
+    int8
+    NOT
+    NULL,
+    CONSTRAINT
+    user_role_pkey
+    PRIMARY
+    KEY
+(
+    role_id,
+    user_id
+),
+    CONSTRAINT "fk_user_role_user_id" FOREIGN KEY
+(
+    user_id
+) REFERENCES "user"
+(
+    id
+),
+    CONSTRAINT "fk_user_role_role_id" FOREIGN KEY
+(
+    role_id
+) REFERENCES "role"
+(
+    id
+)
+    );

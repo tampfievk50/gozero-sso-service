@@ -3,11 +3,12 @@ package utils
 import (
 	"crypto/tls"
 	"fmt"
-	"github.com/secsy/goftp"
 	"gozero-sso-service/internal/config"
 	"os"
 	"sync"
 	"time"
+
+	"github.com/secsy/goftp"
 )
 
 type FtpsUploader struct {
