@@ -5,12 +5,7 @@ import (
 	"gozero-sso-service/application/config"
 	"gozero-sso-service/application/middleware"
 	"gozero-sso-service/dataaccess/adapter/repository"
-	"gozero-sso-service/dataaccess/adapter/repository/role"
-	"gozero-sso-service/dataaccess/adapter/repository/user"
 	"gozero-sso-service/domain/domain-application/adapter/service"
-	"gozero-sso-service/domain/domain-application/adapter/service/auth"
-	roleSvc "gozero-sso-service/domain/domain-application/adapter/service/role"
-	userSvc "gozero-sso-service/domain/domain-application/adapter/service/user"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
@@ -21,21 +16,6 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
 )
-
-func InitRepository(database *ormx.Database) *repository.Repository {
-	return &repository.Repository{
-		UserRepository: user.NewUserRepository(database),
-		RoleRepository: role.NewRoleRepository(database),
-	}
-}
-
-func InitService(rp *repository.Repository) *service.Service {
-	return &service.Service{
-		AuthService: auth.NewAuthService(rp.UserRepository),
-		UserService: userSvc.NewUserService(rp.UserRepository),
-		RoleService: roleSvc.NewRoleService(rp.RoleRepository),
-	}
-}
 
 type ServiceContext struct {
 	Config                 config.Config
