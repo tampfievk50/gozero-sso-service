@@ -2,10 +2,21 @@ package user
 
 import (
 	"context"
+	"errors"
+	"gozero-sso-service/domain/domain-application/utils"
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
 func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {
-	//TODO implement me
-	panic("implement me")
+	user, err := l.userRepo.GetUserByMail(ctx, &userDto.Email)
+	if user != nil {
+		return errors.New("user already exists")
+	}
+
+	userDto.Password = utils.HashPassword(userDto.Password)
+	err = l.userRepo.CreateUser(ctx, userDto)
+	if err != nil {
+		return err
+	}
+	return nil
 }

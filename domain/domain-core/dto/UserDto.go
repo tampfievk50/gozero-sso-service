@@ -6,6 +6,7 @@ type UserDTO struct {
 	ID          uint       `json:"id"`
 	Username    string     `json:"username"`
 	Email       string     `json:"email"`
+	Password    string     `json:"-"`
 	Avatar      string     `json:"avatar"`
 	DateOfBirth *time.Time `json:"date_of_birth"`
 	Age         *int32     `json:"age"`
@@ -17,5 +18,6 @@ type UserDTO struct {
 	LastLogin   *time.Time `json:"last_login"`
 	LastIP      string     `json:"last_ip"`
 
-	Roles []RoleDTO `json:"roles,omitempty"`
+	RoleIDs     []uint `json:"roles,omitempty"`
+	ResourceIDs []uint `json:"resources,omitempty"`
 }

@@ -3,6 +3,7 @@ package svc
 import (
 	"context"
 	"gozero-sso-service/application/config"
+	"gozero-sso-service/application/core"
 	"gozero-sso-service/application/middleware"
 
 	"github.com/casbin/casbin/v2"
@@ -26,8 +27,8 @@ type ServiceContext struct {
 	Pushers  map[string]*kq.Pusher
 	DB       *ormx.Database
 
-	Repo *Repository
-	Svc  *Service
+	Repo *core.Repository
+	Svc  *core.Service
 }
 
 func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
@@ -51,7 +52,7 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 
 	return &ServiceContext{
 		Config:                 c,
-		AuthMiddleware:         middleware.NewAuthMiddleware(rbacEnforcer).Handle,
+		AuthMiddleware:         middleware.NewAuthMiddleware(rbacEnforcer, svc).Handle,
 		RefreshTokenMiddleware: middleware.NewRefreshTokenMiddleware().Handle,
 		RecoverMiddleware:      middleware.NewRecoverMiddleware().Handle,
 		RedisCli:               rdb,

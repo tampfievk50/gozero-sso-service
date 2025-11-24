@@ -10,10 +10,10 @@ type CreateUserRequest struct {
 	LastName    string     `json:"last_name"`
 	DateOfBirth *time.Time `json:"date_of_birth"`
 	Gender      int32      `json:"gender"` // 1=Male, 2=Female, 3=Other
-	ResourceID  *uint      `json:"resource_id"`
+	ResourceIDs []uint     `json:"resources"`
 	IsActive    bool       `json:"is_active"`
 	IsSupper    bool       `json:"is_supper"`
-	RoleIDs     []uint     `json:"role_ids"` // optional list of roles to assign
+	RoleIDs     []uint     `json:"roles"` // optional list of roles to assign
 }
 
 type UpdateUserRequest struct {

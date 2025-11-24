@@ -4,11 +4,14 @@ go 1.24.5
 
 require (
 	github.com/casbin/casbin/v2 v2.109.0
+	github.com/golang-jwt/jwt/v5 v5.0.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/secsy/goftp v0.0.0-20200609142545-aa2de14babf4
 	github.com/tampfievk50/gozero-core-api v0.0.0-20251120061254-96f51ef4d750
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
+	golang.org/x/crypto v0.36.0
 	gorm.io/gorm v1.30.0
 )
 
@@ -81,7 +84,6 @@ require (
 	go.opentelemetry.io/proto/otlp v1.3.1 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
-	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect

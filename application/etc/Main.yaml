@@ -41,7 +41,7 @@ Db:
   MaxIdleSize: 10
   MaxLeftTime: 5
   MigrationDir: "file://application/migration"
-  LogLevel: 2 # 1 - Silent | 2 - Error | 3 - Warn | 4 - Info
+  LogLevel: 4 # 1 - Silent | 2 - Error | 3 - Warn | 4 - Info
   PrepareStmt: true
   SkipDefaultTransaction: true
   SingularTable: true
@@ -52,6 +52,8 @@ Db:
 Auth:
   AccessSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
   AccessExpire: 3600
+  RefreshSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
+  RefreshExpire: 15552000
 
 Casx:
   ModelFile: "application/etc/casx/model.casbin.conf"
@@ -92,20 +94,3 @@ KqConsumerConf:
     - localhost:39092
   Group: account-service-group
   Topic: notify-send-email
-
-Job:
-  UploadPath: ./vtmo
-  VT8x79Table: cdr_queue
-  VTOtherTable: cdr_queue
-FtpVT8x79:
-  Hostname: 192.168.20.51
-  Port: "21"
-  Username: vmgftp
-  Password: Vmg@123
-  BasePath: /vtmo/8x79
-FtpVTOther:
-  Hostname: 192.168.20.51
-  Port: "21"
-  Username: vmgftp
-  Password: Vmg@123
-  BasePath: /vtmo/other

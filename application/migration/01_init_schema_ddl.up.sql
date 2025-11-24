@@ -1,26 +1,22 @@
--- Sequence Definition
+-- ===============================
+-- Sequence Definitions
+-- ===============================
 
 CREATE SEQUENCE IF NOT EXISTS permission_seq
     INCREMENT BY 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     START 1
-	CACHE 1
-	NO CYCLE;
-
-
--- role_seq definition
+    CACHE 1
+    NO CYCLE;
 
 CREATE SEQUENCE IF NOT EXISTS role_seq
     INCREMENT BY 1
     MINVALUE 1
     MAXVALUE 9223372036854775807
     START 1
-	CACHE 1
-	NO CYCLE;
-
-
--- user_seq definition
+    CACHE 1
+    NO CYCLE;
 
 CREATE SEQUENCE IF NOT EXISTS user_seq
     INCREMENT BY 1
@@ -30,222 +26,93 @@ CREATE SEQUENCE IF NOT EXISTS user_seq
     CACHE 1
     NO CYCLE;
 
--- "permission" definition
 
--- Drop table
+-- ===============================
+-- Permission Table
+-- ===============================
 
-CREATE TABLE IF NOT EXISTS "permission"
-(
-    id
-    int8
-    NOT
-    NULL
-    DEFAULT
-    nextval
-(
-    'permission_seq'
-    :
-    :
-    regclass
-),
-    "name" varchar
-(
-    255
-) NULL,
-    description varchar
-(
-    255
-) NULL,
-    path varchar
-(
-    255
-) NULL,
-    action varchar
-(
-    255
-) NULL,
-    created_at timestamp
-(
-    6
-) NULL,
-    updated_at timestamp
-(
-    6
-) NULL,
-    deleted_at timestamp
-(
-    6
-) NULL,
-    created_by int8 NULL,
-    updated_by int8 NULL,
-    deleted_by int8 NULL,
-    CONSTRAINT permission_pkey PRIMARY KEY
-(
-    id
-)
-    );
+CREATE TABLE IF NOT EXISTS "permission" (
+    id          BIGINT NOT NULL DEFAULT nextval('permission_seq'::regclass),
+    name        VARCHAR(255),
+    description VARCHAR(255),
+    path        VARCHAR(255),
+    action      VARCHAR(255),
+    created_at  TIMESTAMP(6),
+    updated_at  TIMESTAMP(6),
+    deleted_at  TIMESTAMP(6),
+    created_by  BIGINT,
+    updated_by  BIGINT,
+    deleted_by  BIGINT,
+    is_deleted    BOOLEAN DEFAULT false,
 
--- "role" definition
+    PRIMARY KEY (id)
+);
 
--- Drop table
 
-CREATE TABLE IF NOT EXISTS "role"
-(
-    id
-    int8
-    NOT
-    NULL
-    DEFAULT
-    nextval
-(
-    'role_seq'
-    :
-    :
-    regclass
-),
-    "name" varchar
-(
-    255
-) NULL,
-    description varchar
-(
-    255
-) NULL,
-    created_at timestamp
-(
-    6
-) NULL,
-    updated_at timestamp
-(
-    6
-) NULL,
-    deleted_at timestamp
-(
-    6
-) NULL,
-    created_by int8 NULL,
-    updated_by int8 NULL,
-    deleted_by int8 NULL,
-    CONSTRAINT role_pkey PRIMARY KEY
-(
-    id
-)
-    );
+-- ===============================
+-- Role Table
+-- ===============================
 
--- "user" definition
+CREATE TABLE IF NOT EXISTS "role" (
+    id          BIGINT NOT NULL DEFAULT nextval('role_seq'::regclass),
+    name        VARCHAR(255),
+    description VARCHAR(255),
+    created_at  TIMESTAMP(6),
+    updated_at  TIMESTAMP(6),
+    deleted_at  TIMESTAMP(6),
+    created_by  BIGINT,
+    updated_by  BIGINT,
+    deleted_by  BIGINT,
+    is_deleted    BOOLEAN DEFAULT false,
+    PRIMARY KEY (id)
+);
 
--- Drop table
 
-CREATE TABLE IF NOT EXISTS "user"
-(
-    id
-    int8
-    NOT
-    NULL
-    DEFAULT
-    nextval
-(
-    'user_seq'
-    :
-    :
-    regclass
-),
-    username varchar
-(
-    255
-) NULL,
-    email varchar
-(
-    255
-) NULL,
-    "password" varchar
-(
-    255
-) NULL,
-    is_supper bool default false,
-    last_ip varchar
-(
-    255
-) NULL,
-    last_login timestamp
-(
-    6
-) NULL,
-    avatar varchar
-(
-    255
-) NULL,
-    created_at timestamp
-(
-    6
-) NULL,
-    updated_at timestamp
-(
-    6
-) NULL,
-    deleted_at timestamp
-(
-    6
-) NULL,
-    created_by int8 NULL,
-    date_of_birth timestamp
-(
-    6
-) NULL,
-    updated_by int8 NULL,
-    deleted_by int8 NULL,
-    age int4 NULL,
-    gender int4 NOT NULL DEFAULT 0, -- Gender 1-Male 2-FeMale 3-Other
-    is_deleted bool default false,
-    first_name varchar
-(
-    255
-) NULL,
-    last_name varchar
-(
-    255
-) NULL,
-    is_active bool default true,
-    CONSTRAINT user_pkey PRIMARY KEY
-(
-    id
-)
-    );
+-- ===============================
+-- User Table
+-- ===============================
 
--- user_role definition
+CREATE TABLE IF NOT EXISTS "user" (
+    id            BIGINT NOT NULL DEFAULT nextval('user_seq'::regclass),
+    username      VARCHAR(255),
+    email         VARCHAR(255),
+    password      VARCHAR(255),
+    is_supper     BOOLEAN DEFAULT false,
+    last_ip       VARCHAR(255),
+    last_login    TIMESTAMP(6),
+    avatar        VARCHAR(255),
+    created_at    TIMESTAMP(6),
+    updated_at    TIMESTAMP(6),
+    deleted_at    TIMESTAMP(6),
+    created_by    BIGINT,
+    updated_by    BIGINT,
+    deleted_by    BIGINT,
+    date_of_birth TIMESTAMP(6),
+    age           INT,
+    gender        INT NOT NULL DEFAULT 0, -- 1=Male, 2=Female, 3=Other
+    is_deleted    BOOLEAN DEFAULT false,
+    first_name    VARCHAR(255),
+    last_name     VARCHAR(255),
+    is_active     BOOLEAN DEFAULT true,
 
--- Drop table
+    PRIMARY KEY (id)
+);
 
-CREATE TABLE IF NOT EXISTS user_role
-(
-    user_id
-    int8
-    NOT
-    NULL,
-    role_id
-    int8
-    NOT
-    NULL,
-    CONSTRAINT
-    user_role_pkey
-    PRIMARY
-    KEY
-(
-    role_id,
-    user_id
-),
-    CONSTRAINT "fk_user_role_user_id" FOREIGN KEY
-(
-    user_id
-) REFERENCES "user"
-(
-    id
-),
-    CONSTRAINT "fk_user_role_role_id" FOREIGN KEY
-(
-    role_id
-) REFERENCES "role"
-(
-    id
-)
-    );
+
+-- ===============================
+-- User Role Table
+-- ===============================
+
+CREATE TABLE IF NOT EXISTS user_role (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+
+    PRIMARY KEY (role_id, user_id),
+    CONSTRAINT fk_user_role_user_id
+    FOREIGN KEY (user_id) REFERENCES "user" (id),
+    CONSTRAINT fk_user_role_role_id
+    FOREIGN KEY (role_id) REFERENCES "role" (id)
+);
+
+INSERT INTO "role" ("name", description, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by)
+VALUES('Administrator', 'Quản trị hệ thống', NULL, NULL, NULL, NULL, NULL, NULL);

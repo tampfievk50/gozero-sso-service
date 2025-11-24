@@ -1,4 +1,4 @@
-package config
+package dto
 
 import (
 	"github.com/tampfievk50/gozero-core-api/casbinx"
@@ -7,55 +7,40 @@ import (
 	"github.com/zeromicro/go-zero/rest"
 )
 
-type Config struct {
-	Rest            RestConf
-	Auth            AuthConf
+type ConfigDto struct {
+	Rest            RestConfDto
+	Auth            AuthConfDto
 	Db              ormx.Conf
-	Redis           RedisConf
+	Redis           RedisConfDto
 	Casx            casbinx.CasxConf
 	EnableMessaging bool
-	KqPusherConf    KqPusherConf
+	KqPusherConf    KqPusherConfDto
 	KqConsumerConf  kq.KqConf
 }
 
-type ServiceUrlConf struct {
+type ServiceUrlConfDto struct {
 	QuotaServiceUrl    string
 	ContractServiceUrl string
 }
 
-type RestConf struct {
+type RestConfDto struct {
 	rest.RestConf
 	CorsOrigins []string
 }
 
-type AppConf struct {
+type AppConfDto struct {
 	EmailSenderAddress string
 	Endpoint           string `json:",optional"`
 }
 
-type CaptchaConf struct {
-	Enable bool `json:",default=true"`
-
-	Version   int     `json:",default=2,options=2|3"`
-	Action    string  `json:",default=auth"`
-	Score     float64 `json:",default=0.5"`
-	SiteKey   string  `json:",optional"`
-	SecretKey string  `json:",optional"`
-
-	ImageCaptchaEnable         bool  `json:",default=false"`
-	ImageCaptchaTtl            int64 `json:",optional,default=300,comment:second"`
-	ImageCaptchaLoginFailCount int64 `json:",optional,default=5"`
-	ImageCaptchaLoginFailTtl   int64 `json:",optional,default=3600,comment:second"`
-}
-
-type AuthConf struct {
+type AuthConfDto struct {
 	AccessSecret  string
 	AccessExpire  int64
 	RefreshSecret string
 	RefreshExpire int64
 }
 
-type OtpConf struct {
+type OtpConfDto struct {
 	OtpLength            int32 `json:",optional,default=6"`
 	SmsResendDelay       int32 `json:",optional,comment:second"`
 	MaxOTPResendAttempts int32 `json:",optional,comment:second"`
@@ -64,12 +49,12 @@ type OtpConf struct {
 	VerificationAttempts int32 `json:",optional,comment:second"`
 }
 
-type KqPusherConf struct {
+type KqPusherConfDto struct {
 	Brokers []string
 	Topics  []string
 }
 
-type RedisConf struct {
+type RedisConfDto struct {
 	Addr     string
 	Password string
 	DB       int

@@ -7,7 +7,6 @@ type User struct {
 	Username    string     `gorm:"size:255" json:"username"`
 	Email       string     `gorm:"size:255" json:"email"`
 	Password    string     `gorm:"size:255" json:"password"`
-	ResourceID  *uint      `json:"resource_id"`
 	IsSupper    bool       `gorm:"default:false" json:"is_supper"`
 	LastIP      string     `gorm:"size:255" json:"last_ip"`
 	LastLogin   *time.Time `json:"last_login"`
@@ -19,5 +18,6 @@ type User struct {
 	LastName    string     `gorm:"size:255" json:"last_name"`
 	IsActive    bool       `gorm:"default:true" json:"is_active"`
 
-	Roles []Role `gorm:"many2many:user_role;joinForeignKey:UserID;joinReferences:RoleID" json:"roles"`
+	Roles     []Role     `gorm:"many2many:user_role;joinForeignKey:UserID;joinReferences:RoleID" json:"roles"`
+	Resources []Resource `gorm:"many2many:user_resource;joinForeignKey:UserID;joinReferences:ResourceID" json:"resources"`
 }
