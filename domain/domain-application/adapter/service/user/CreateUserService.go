@@ -13,7 +13,11 @@ func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {
 		return errors.New("user already exists")
 	}
 
-	userDto.Password = utils.HashPassword(userDto.Password)
+	hashedPassword, err := utils.HashPassword(userDto.Password)
+	if err != nil {
+		return err
+	}
+	userDto.Password = *hashedPassword
 	err = l.userRepo.CreateUser(ctx, userDto)
 	if err != nil {
 		return err
