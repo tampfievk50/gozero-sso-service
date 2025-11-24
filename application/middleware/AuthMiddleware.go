@@ -3,7 +3,7 @@ package middleware
 import (
 	"context"
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"gozero-sso-service/application/core"
+	"gozero-sso-service/domain/domain-application/adapter/service"
 	"net/http"
 	"strings"
 
@@ -14,10 +14,10 @@ import (
 type AuthMiddleware struct {
 	logx.Logger
 	Enforcer *casbin.SyncedEnforcer
-	svc      *core.Service
+	svc      *service.Service
 }
 
-func NewAuthMiddleware(Enforcer *casbin.SyncedEnforcer, svc *core.Service) *AuthMiddleware {
+func NewAuthMiddleware(Enforcer *casbin.SyncedEnforcer, svc *service.Service) *AuthMiddleware {
 	return &AuthMiddleware{
 		Logger:   logx.WithContext(context.Background()),
 		Enforcer: Enforcer,

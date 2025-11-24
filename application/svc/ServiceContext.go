@@ -3,8 +3,9 @@ package svc
 import (
 	"context"
 	"gozero-sso-service/application/config"
-	"gozero-sso-service/application/core"
 	"gozero-sso-service/application/middleware"
+	"gozero-sso-service/dataaccess/adapter/repository"
+	"gozero-sso-service/domain/domain-application/adapter/service"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"
@@ -27,8 +28,8 @@ type ServiceContext struct {
 	Pushers  map[string]*kq.Pusher
 	DB       *ormx.Database
 
-	Repo *core.Repository
-	Svc  *core.Service
+	Repo *repository.Repository
+	Svc  *service.Service
 }
 
 func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
@@ -47,8 +48,8 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 		pushers[topic] = kq.NewPusher(c.KqPusherConf.Brokers, topic)
 	}
 
-	rp := InitRepository(database)
-	svc := InitService(rp)
+	repo := InitRepository(database)
+	svc := InitService(repo)
 
 	return &ServiceContext{
 		Config:                 c,
@@ -59,7 +60,7 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 		Enforcer:               rbacEnforcer,
 		Pushers:                pushers,
 		DB:                     database,
-		Repo:                   rp,
+		Repo:                   repo,
 		Svc:                    svc,
 	}
 }
