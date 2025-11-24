@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 	"runtime/debug"
 
@@ -17,8 +18,8 @@ func (m *RecoverMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if rec := recover(); rec != nil {
-				logx.Errorf("[PANIC] %v\nStack: %s", rec, debug.Stack())
-				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				logx.WithContext(r.Context()).Errorf("[PANIC] %v\nStack: %s", rec, debug.Stack())
+				httpx.WriteJson(w, http.StatusInternalServerError, nil)
 			}
 		}()
 		next(w, r)
