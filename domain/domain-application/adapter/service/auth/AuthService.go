@@ -4,13 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/casbin/casbin/v2"
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/zeromicro/go-zero/core/logx"
 	"gozero-sso-service/domain/domain-application/utils"
 	"gozero-sso-service/domain/domain-core/dto"
 	"strings"
 	"time"
+
+	"github.com/casbin/casbin/v2"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/zeromicro/go-zero/core/logx"
 )
 
 func (l *service) RefreshToken(ctx context.Context) (*dto.UserToken, error) {
@@ -59,16 +60,14 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 	return &dto.UserToken{AccessToken: accessToken, RefreshToken: refreshToken}, nil
 }
 
-func (l *service) HasPermission(ctx context.Context, m *casbin.SyncedEnforcer, subs []string, doms []string, path, method string) (bool, error) {
-	for _, roleId := range subs {
-		for _, domainId := range doms {
-			enforce, err := m.Enforcer.Enforce(roleId, domainId, path, method)
-			if err != nil {
-				logx.WithContext(ctx).Errorf("casbin error: %v", err.Error())
-			}
-			if enforce {
-				return true, nil
-			}
+func (l *service) HasPermission(ctx context.Context, m *casbin.SyncedEnforcer, sub string, doms []string, path, method string) (bool, error) {
+	for _, domainId := range doms {
+		enforce, err := m.Enforcer.Enforce(sub, domainId, path, method)
+		if err != nil {
+			logx.WithContext(ctx).Errorf("casbin error: %v", err.Error())
+		}
+		if enforce {
+			return true, nil
 		}
 	}
 	return false, nil
