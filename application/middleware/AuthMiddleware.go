@@ -41,8 +41,7 @@ func (m *AuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			domains = append(domains, dom.(string))
 		}
 
-		logx.Infof("sub: %v", sub)
-		logx.Infof("domain: %v", dom)
+		logx.Infof("sub: %v, domain: %v", sub, dom)
 
 		verify, _ := m.svc.AuthService.HasPermission(r.Context(), m.Enforcer, fmt.Sprintf("%v", sub), domains, r.URL.Path, r.Method)
 		if !verify {
