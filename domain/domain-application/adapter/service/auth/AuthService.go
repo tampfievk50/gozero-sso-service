@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/casbin/casbin/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -60,9 +59,9 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 	return &dto.UserToken{AccessToken: accessToken, RefreshToken: refreshToken}, nil
 }
 
-func (l *service) HasPermission(ctx context.Context, m *casbin.SyncedEnforcer, sub string, doms []string, path, method string) (bool, error) {
+func (l *service) HasPermission(ctx context.Context, sub string, doms []string, path, method string) (bool, error) {
 	for _, domainId := range doms {
-		enforce, err := m.Enforcer.Enforce(sub, domainId, path, method)
+		enforce, err := l.m.Enforcer.Enforce(sub, domainId, path, method)
 		if err != nil {
 			logx.WithContext(ctx).Errorf("casbin error: %v", err.Error())
 		}

@@ -9,21 +9,18 @@ import (
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 
-	"github.com/casbin/casbin/v2"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type AuthMiddleware struct {
 	logx.Logger
-	Enforcer *casbin.SyncedEnforcer
-	svc      *service.Service
+	svc *service.Service
 }
 
-func NewAuthMiddleware(Enforcer *casbin.SyncedEnforcer, svc *service.Service) *AuthMiddleware {
+func NewAuthMiddleware(svc *service.Service) *AuthMiddleware {
 	return &AuthMiddleware{
-		Logger:   logx.WithContext(context.Background()),
-		Enforcer: Enforcer,
-		svc:      svc,
+		Logger: logx.WithContext(context.Background()),
+		svc:    svc,
 	}
 }
 
@@ -43,7 +40,7 @@ func (m *AuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 
 		logx.Infof("sub: %v, domain: %v", sub, dom)
 
-		verify, _ := m.svc.AuthService.HasPermission(r.Context(), m.Enforcer, fmt.Sprintf("%v", sub), domains, r.URL.Path, r.Method)
+		verify, _ := m.svc.AuthService.HasPermission(r.Context(), fmt.Sprintf("%v", sub), domains, r.URL.Path, r.Method)
 		if !verify {
 			m.Logger.Errorf("Unauthorized for sub: %s, domain: %s, URL: %s, Path: %s", sub, dom, r.URL.Path, r.Method)
 			httpx.WriteJson(w, http.StatusForbidden, nil)

@@ -49,11 +49,11 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 	}
 
 	repo := InitRepository(database)
-	svc := InitService(repo)
+	svc := InitService(repo, rbacEnforcer)
 
 	return &ServiceContext{
 		Config:                 c,
-		AuthMiddleware:         middleware.NewAuthMiddleware(rbacEnforcer, svc).Handle,
+		AuthMiddleware:         middleware.NewAuthMiddleware(svc).Handle,
 		RefreshTokenMiddleware: middleware.NewRefreshTokenMiddleware().Handle,
 		RecoverMiddleware:      middleware.NewRecoverMiddleware().Handle,
 		RedisCli:               rdb,
