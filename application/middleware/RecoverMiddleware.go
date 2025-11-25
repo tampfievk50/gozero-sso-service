@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/zeromicro/go-zero/rest/httpx"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/zeromicro/go-zero/rest/httpx"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

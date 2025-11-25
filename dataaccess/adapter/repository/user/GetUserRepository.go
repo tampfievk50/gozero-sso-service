@@ -2,9 +2,10 @@ package user
 
 import (
 	"context"
-	"github.com/jinzhu/copier"
 	"gozero-sso-service/dataaccess/model"
 	"gozero-sso-service/domain/domain-core/dto"
+
+	"github.com/jinzhu/copier"
 )
 
 func (r *repository) GetAllUsers(ctx context.Context, pager *dto.PagerDto) ([]dto.UserDTO, error) {
