@@ -46,7 +46,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				{
 					Method:  http.MethodPost,
 					Path:    "/account/role",
-					Handler: user.LinkUserRoleHandler(serverCtx),
+					Handler: user.AddGroupPolicyHandler(serverCtx),
 				},
 			}...,
 		),

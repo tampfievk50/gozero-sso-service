@@ -7,7 +7,7 @@ import (
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
-func (r *repository) GetRoleByIds(ctx context.Context, ids []uint) ([]dto.RoleDTO, error) {
+func (r *repository) ByIDs(ctx context.Context, ids []uint) ([]dto.RoleDTO, error) {
 	var (
 		roles    []model.Role
 		roleDtos []dto.RoleDTO

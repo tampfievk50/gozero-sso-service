@@ -11,4 +11,5 @@ type RoleService interface {
 	CreateRole(ctx context.Context, createRoleRequest *dto.RoleDTO) error
 	UpdateRole(ctx context.Context, roleDto *dto.RoleDTO) error
 	DeleteRole(ctx context.Context, id uint) error
+	AddPolicy(ctx context.Context, rolePermissionDto *dto.RolePermissionDto) error
 }

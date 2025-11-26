@@ -13,6 +13,6 @@ func InitService(rp *repository.Repository, enforcer *casbin.SyncedEnforcer) *se
 	return &service.Service{
 		AuthService: auth.NewAuthService(rp, enforcer),
 		UserService: user.NewUserService(rp, enforcer),
-		RoleService: role.NewRoleService(rp),
+		RoleService: role.NewRoleService(rp, enforcer),
 	}
 }

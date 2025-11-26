@@ -1,4 +1,4 @@
-package user
+package role
 
 import (
 	"github.com/jinzhu/copier"
@@ -13,24 +13,24 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func LinkUserRoleHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
+func AddPolicyHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var (
-			req         types.UserRoleRequest
-			userRoleDto dto.UserRoleDto
+			req               types.RolePermissionRequest
+			rolePermissionDto dto.RolePermissionDto
 		)
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.OkJsonCtx(r.Context(), w, err)
 			return
 		}
 
-		err := copier.Copy(&userRoleDto, &req)
+		err := copier.Copy(&rolePermissionDto, &req)
 		if err != nil {
 			httpx.OkJsonCtx(r.Context(), w, err)
 			return
 		}
 		svcCtx := svcCtx.(*svc.ServiceContext)
-		err = svcCtx.Svc.UserService.LinkUserRole(r.Context(), &userRoleDto)
+		err = svcCtx.Svc.RoleService.AddPolicy(r.Context(), &rolePermissionDto)
 		if err != nil {
 			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {

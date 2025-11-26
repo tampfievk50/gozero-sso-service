@@ -7,8 +7,8 @@ import (
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
-func (l *service) LinkUserRole(ctx context.Context, userRoleDto *dto.UserRoleDto) error {
-	roleDtos, err := l.rp.RoleRepository.GetRoleByIds(ctx, userRoleDto.RoleID)
+func (l *service) AddGroupPolicy(ctx context.Context, userRoleDto *dto.UserRoleDto) error {
+	roleDtos, err := l.rp.RoleRepository.ByIDs(ctx, userRoleDto.RoleID)
 	if err != nil {
 		return err
 	}

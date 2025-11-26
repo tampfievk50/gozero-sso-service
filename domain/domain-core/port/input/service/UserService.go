@@ -11,5 +11,5 @@ type UserService interface {
 	CreateUser(ctx context.Context, createUserRequest *dto.UserDTO) error
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error
 	DeleteUser(ctx context.Context, id uint) error
-	LinkUserRole(ctx context.Context, roleDto *dto.UserRoleDto) error
+	AddGroupPolicy(ctx context.Context, roleDto *dto.UserRoleDto) error
 }
