@@ -5,5 +5,5 @@ type RolePermissionRequest struct {
 	DomainID uint   `json:"domain_id"`
 	Path     string `json:"path"`
 	Action   string `json:"action"`
-	Access   string `json:"access"`
+	Access   string `json:"access" binding:"required"`
 }

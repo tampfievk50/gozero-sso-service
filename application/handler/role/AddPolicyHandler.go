@@ -20,19 +20,19 @@ func AddPolicyHandler(svcCtx servicecontext.ServiceContextInterface) http.Handle
 			rolePermissionDto dto.RolePermissionDto
 		)
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.OkJsonCtx(r.Context(), w, err)
+			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, err.Error(), nil))
 			return
 		}
 
 		err := copier.Copy(&rolePermissionDto, &req)
 		if err != nil {
-			httpx.OkJsonCtx(r.Context(), w, err)
+			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, err.Error(), nil))
 			return
 		}
 		svcCtx := svcCtx.(*svc.ServiceContext)
 		err = svcCtx.Svc.RoleService.AddPolicy(r.Context(), &rolePermissionDto)
 		if err != nil {
-			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
+			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
 			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusCreated, http.StatusText(http.StatusCreated), req))
 		}
