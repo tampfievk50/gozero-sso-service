@@ -61,7 +61,7 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 
 func (l *service) HasPermission(ctx context.Context, sub string, doms []string, path, method string) (bool, error) {
 	for _, domainId := range doms {
-		enforce, err := l.m.Enforcer.Enforce(sub, domainId, path, method)
+		enforce, err := l.enforcer.Enforcer.Enforce(sub, domainId, path, method)
 		if err != nil {
 			logx.WithContext(ctx).Errorf("casbin error: %v", err.Error())
 		}

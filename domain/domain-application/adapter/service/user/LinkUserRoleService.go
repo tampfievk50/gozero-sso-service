@@ -4,11 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/casbin/casbin/v2"
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
-func (l *service) LinkUserRole(ctx context.Context, userRoleDto *dto.UserRoleDto, m *casbin.SyncedEnforcer) error {
+func (l *service) LinkUserRole(ctx context.Context, userRoleDto *dto.UserRoleDto) error {
 	roleDtos, err := l.rp.RoleRepository.GetRoleByIds(ctx, userRoleDto.RoleID)
 	if err != nil {
 		return err
@@ -26,7 +25,7 @@ func (l *service) LinkUserRole(ctx context.Context, userRoleDto *dto.UserRoleDto
 			fmt.Sprintf("%d", userRoleDto.DomainID),
 		})
 	}
-	_, err = m.AddGroupingPolicies(rules)
+	_, err = l.enforcer.AddGroupingPolicies(rules)
 	if err != nil {
 		return err
 	}

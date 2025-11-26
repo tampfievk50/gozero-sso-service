@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"github.com/casbin/casbin/v2"
 	"gozero-sso-service/dataaccess/adapter/repository"
 	"gozero-sso-service/domain/domain-application/adapter/service"
 	"gozero-sso-service/domain/domain-application/adapter/service/auth"
@@ -8,10 +9,10 @@ import (
 	"gozero-sso-service/domain/domain-application/adapter/service/user"
 )
 
-func InitService(rp *repository.Repository) *service.Service {
+func InitService(rp *repository.Repository, enforcer *casbin.SyncedEnforcer) *service.Service {
 	return &service.Service{
-		AuthService: auth.NewAuthService(rp),
-		UserService: user.NewUserService(rp),
+		AuthService: auth.NewAuthService(rp, enforcer),
+		UserService: user.NewUserService(rp, enforcer),
 		RoleService: role.NewRoleService(rp),
 	}
 }

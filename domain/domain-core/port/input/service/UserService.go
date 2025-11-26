@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"github.com/casbin/casbin/v2"
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
@@ -12,5 +11,5 @@ type UserService interface {
 	CreateUser(ctx context.Context, createUserRequest *dto.UserDTO) error
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error
 	DeleteUser(ctx context.Context, id uint) error
-	LinkUserRole(ctx context.Context, roleDto *dto.UserRoleDto, m *casbin.SyncedEnforcer) error
+	LinkUserRole(ctx context.Context, roleDto *dto.UserRoleDto) error
 }

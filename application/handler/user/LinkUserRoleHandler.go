@@ -13,7 +13,7 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
-func RoleHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
+func LinkUserRoleHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var (
 			req         types.UserRoleRequest
@@ -30,7 +30,7 @@ func RoleHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc
 			return
 		}
 		svcCtx := svcCtx.(*svc.ServiceContext)
-		err = svcCtx.Svc.UserService.LinkUserRole(r.Context(), &userRoleDto, svcCtx.Enforcer)
+		err = svcCtx.Svc.UserService.LinkUserRole(r.Context(), &userRoleDto)
 		if err != nil {
 			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
