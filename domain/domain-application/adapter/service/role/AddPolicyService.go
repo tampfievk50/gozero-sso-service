@@ -26,6 +26,14 @@ func (l *service) AddPolicy(ctx context.Context, rolePermissionDto *dto.RolePerm
 			rolePermissionDto.Action,
 			rolePermissionDto.Access,
 		})
+		_, err = l.enforcer.RemoveFilteredPolicy(0,
+			fmt.Sprintf("%d", v),
+			fmt.Sprintf("%d", rolePermissionDto.DomainID),
+			rolePermissionDto.Path,
+			rolePermissionDto.Action)
+		if err != nil {
+			return err
+		}
 	}
 
 	_, err = l.enforcer.AddPolicies(rules)

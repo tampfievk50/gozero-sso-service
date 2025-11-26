@@ -59,7 +59,7 @@ Casx:
   ModelFile: "application/etc/casx/model.casbin.conf"
   PolicyFile: "application/etc/casx/policy.casbin.csv"
   EnableLog: true
-  InitPolicy: true
+  InitPolicy: false
   TableName: "role_permission"
   EnableWatcher: true
   WatcherChannel: "casbin_rule_update"
