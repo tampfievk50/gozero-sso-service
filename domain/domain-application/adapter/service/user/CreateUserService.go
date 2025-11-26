@@ -8,7 +8,7 @@ import (
 )
 
 func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {
-	user, err := l.userRepo.GetUserByMail(ctx, &userDto.Email)
+	user, err := l.rp.UserRepository.GetUserByMail(ctx, &userDto.Email)
 	if user != nil {
 		return errors.New("user already exists")
 	}
@@ -18,7 +18,7 @@ func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {
 		return err
 	}
 	userDto.Password = *hashedPassword
-	err = l.userRepo.CreateUser(ctx, userDto)
+	err = l.rp.UserRepository.CreateUser(ctx, userDto)
 	if err != nil {
 		return err
 	}

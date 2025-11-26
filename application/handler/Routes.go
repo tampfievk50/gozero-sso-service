@@ -43,6 +43,11 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 					Path:    "/account/:id",
 					Handler: user.DeleteHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/account/role",
+					Handler: user.RoleHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),

@@ -1,16 +1,16 @@
 package role
 
 import (
+	"gozero-sso-service/dataaccess/adapter/repository"
 	iport "gozero-sso-service/domain/domain-core/port/input/service"
-	oport "gozero-sso-service/domain/domain-core/port/output/repository"
 )
 
 type service struct {
-	roleRepo oport.RoleRepository
+	rp *repository.Repository
 }
 
-func NewRoleService(roleRepo oport.RoleRepository) iport.RoleService {
+func NewRoleService(rp *repository.Repository) iport.RoleService {
 	return &service{
-		roleRepo: roleRepo,
+		rp: rp,
 	}
 }

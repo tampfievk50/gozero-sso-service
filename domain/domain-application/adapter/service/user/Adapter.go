@@ -1,16 +1,16 @@
 package user
 
 import (
+	"gozero-sso-service/dataaccess/adapter/repository"
 	iport "gozero-sso-service/domain/domain-core/port/input/service"
-	oport "gozero-sso-service/domain/domain-core/port/output/repository"
 )
 
 type service struct {
-	userRepo oport.UserRepository
+	rp *repository.Repository
 }
 
-func NewUserService(userRepo oport.UserRepository) iport.UserService {
+func NewUserService(rp *repository.Repository) iport.UserService {
 	return &service{
-		userRepo: userRepo,
+		rp: rp,
 	}
 }

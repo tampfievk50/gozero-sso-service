@@ -19,7 +19,7 @@ func (l *service) RefreshToken(ctx context.Context) (*dto.UserToken, error) {
 }
 
 func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, config *dto.ConfigDto) (*dto.UserToken, error) {
-	user, err := l.userRepo.GetUserByMail(ctx, &userLoginDto.Email)
+	user, err := l.rp.UserRepository.GetUserByMail(ctx, &userLoginDto.Email)
 
 	if err != nil {
 		return nil, errors.New("invalid username or password")
