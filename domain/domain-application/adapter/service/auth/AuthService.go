@@ -38,7 +38,6 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 		"dom":      strings.Trim(strings.Replace(fmt.Sprint(user.ResourceIDs), " ", ",", -1), "[]"),
 		"iat":      now,
 		"exp":      now + config.Auth.AccessExpire,
-		"role":     strings.Trim(strings.Replace(fmt.Sprint(user.RoleIDs), " ", ",", -1), "[]"),
 	}).SignedString([]byte(config.Auth.AccessSecret))
 
 	if err != nil {
