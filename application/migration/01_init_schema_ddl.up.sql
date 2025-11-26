@@ -98,21 +98,5 @@ CREATE TABLE IF NOT EXISTS "user" (
     PRIMARY KEY (id)
 );
 
-
--- ===============================
--- User Role Table
--- ===============================
-
-CREATE TABLE IF NOT EXISTS user_role (
-    user_id BIGINT NOT NULL,
-    role_id BIGINT NOT NULL,
-
-    PRIMARY KEY (role_id, user_id),
-    CONSTRAINT fk_user_role_user_id
-    FOREIGN KEY (user_id) REFERENCES "user" (id),
-    CONSTRAINT fk_user_role_role_id
-    FOREIGN KEY (role_id) REFERENCES "role" (id)
-);
-
 INSERT INTO "role" ("name", description, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by)
 VALUES('Administrator', 'Quản trị hệ thống', NULL, NULL, NULL, NULL, NULL, NULL);
