@@ -6,6 +6,5 @@ import (
 )
 
 func (l *service) UpdateUser(ctx context.Context, userDto *dto.UserDTO) error {
-	//TODO implement me
-	panic("implement me")
+	return l.rp.UserRepository.UpdateUser(ctx, userDto)
 }

@@ -15,6 +15,10 @@ Rest:
     Rotation: daily
     KeepDays: 30
 
+Pager:
+  page: 1
+  size: 20
+
 Db:
   Driver: postgres
   Primary:

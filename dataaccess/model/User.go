@@ -6,7 +6,7 @@ type User struct {
 	VModel
 	Username    string     `gorm:"size:255" json:"username"`
 	Email       string     `gorm:"size:255" json:"email"`
-	Password    string     `gorm:"size:255" json:"password"`
+	Password    string     `gorm:"size:255" json:"-"`
 	IsSupper    bool       `gorm:"default:false" json:"is_supper"`
 	LastIP      string     `gorm:"size:255" json:"last_ip"`
 	LastLogin   *time.Time `json:"last_login"`

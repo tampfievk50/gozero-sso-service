@@ -10,6 +10,6 @@ type UserRepository interface {
 	GetUser(ctx context.Context, id *uint) (*dto.UserDTO, error)
 	CreateUser(ctx context.Context, userDto *dto.UserDTO) error
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error
-	DeleteUser(ctx context.Context, id *uint) error
+	DeleteUser(ctx context.Context, id uint) error
 	GetUserByMail(ctx context.Context, email *string) (*dto.UserDTO, error)
 }

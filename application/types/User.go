@@ -17,17 +17,12 @@ type CreateUserRequest struct {
 }
 
 type UpdateUserRequest struct {
-	Username    *string    `json:"username,omitempty"`
-	Email       *string    `json:"email,omitempty"`
-	Password    *string    `json:"password,omitempty"` // allow optional password change
-	FirstName   *string    `json:"first_name,omitempty"`
-	LastName    *string    `json:"last_name,omitempty"`
-	DateOfBirth *time.Time `json:"date_of_birth,omitempty"`
-	Gender      *int32     `json:"gender,omitempty"`
-	ResourceID  *uint      `json:"resource_id,omitempty"`
-	IsActive    *bool      `json:"is_active,omitempty"`
-	IsSupper    *bool      `json:"is_supper,omitempty"`
-	RoleIDs     []uint     `json:"role_ids,omitempty"`
+	Id          uint       `path:"id,omitempty"`
+	FirstName   *string    `json:"first_name,optional"`
+	LastName    *string    `json:"last_name,optional"`
+	DateOfBirth *time.Time `json:"date_of_birth,optional"`
+	Gender      *int32     `json:"gender,optional"`
+	IsActive    *bool      `json:"is_active,optional"`
 }
 
 type UserFilterRequest struct {

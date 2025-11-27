@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	Rest            RestConf
+	Pager           PagerConf
 	Auth            AuthConf
 	Db              ormx.Conf
 	Redis           RedisConf
@@ -26,6 +27,11 @@ type ServiceUrlConf struct {
 type RestConf struct {
 	rest.RestConf
 	CorsOrigins []string
+}
+
+type PagerConf struct {
+	Page int `json:",default=1"`
+	Size int `json:",default=20"`
 }
 
 type AppConf struct {

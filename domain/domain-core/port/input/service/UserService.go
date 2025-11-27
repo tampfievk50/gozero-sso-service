@@ -6,7 +6,7 @@ import (
 )
 
 type UserService interface {
-	GetAllUsers(ctx context.Context) ([]dto.UserDTO, error)
+	GetAllUsers(ctx context.Context, pager *dto.PagerDto) ([]dto.UserDTO, error)
 	GetUser(ctx context.Context, id uint) (*dto.UserDTO, error)
 	CreateUser(ctx context.Context, createUserRequest *dto.UserDTO) error
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error

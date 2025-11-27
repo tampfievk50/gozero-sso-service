@@ -31,9 +31,9 @@ func CreateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 		}
 		err = svcCtx.(*svc.ServiceContext).Svc.UserService.CreateUser(r.Context(), &userDto)
 		if err != nil {
-			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
+			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, types.VResponse(http.StatusCreated, http.StatusText(http.StatusCreated), req))
+			httpx.WriteJson(w, http.StatusCreated, types.VResponse(http.StatusCreated, http.StatusText(http.StatusCreated), req))
 		}
 	}
 }

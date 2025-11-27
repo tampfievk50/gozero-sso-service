@@ -19,11 +19,11 @@ func DeleteHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		err := svcCtx.(*svc.ServiceContext).Svc.UserService.DeleteUser(r.Context(), 0)
+		err := svcCtx.(*svc.ServiceContext).Svc.UserService.DeleteUser(r.Context(), req.Id)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, req)
+			httpx.WriteJson(w, http.StatusOK, types.VResponse(http.StatusOK, http.StatusText(http.StatusCreated), req))
 		}
 	}
 }
