@@ -29,11 +29,12 @@ func (m *AuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			userRoleDtos []dto.UserRoleDto
 		)
 		roleRaw := r.Context().Value("roles")
+		isSuperAdmin := r.Context().Value("isSuper")
 		_ = json.Unmarshal([]byte(roleRaw.(string)), &userRoleDtos)
 
 		logx.Infof("request with role: %v", roleRaw)
 
-		verify, _ := m.svc.AuthService.HasPermission(r.Context(), userRoleDtos, r.URL.Path, r.Method)
+		verify, _ := m.svc.AuthService.HasPermission(r.Context(), isSuperAdmin.(bool), userRoleDtos, r.URL.Path, r.Method)
 		if !verify {
 			m.Logger.Errorf("Unauthorized for roles: %s, URL: %s, Path: %s", roleRaw, r.URL.Path, r.Method)
 			httpx.WriteJson(w, http.StatusForbidden, nil)

@@ -8,5 +8,5 @@ import (
 type AuthService interface {
 	RefreshToken(ctx context.Context) (*dto.UserToken, error)
 	Login(ctx context.Context, req *dto.UserLoginDto, config *dto.ConfigDto) (*dto.UserToken, error)
-	HasPermission(ctx context.Context, userRoleDtos []dto.UserRoleDto, path, method string) (bool, error)
+	HasPermission(ctx context.Context, isSuperAdmin bool, userRoleDtos []dto.UserRoleDto, path, method string) (bool, error)
 }
