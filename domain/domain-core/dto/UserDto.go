@@ -18,6 +18,7 @@ type UserDTO struct {
 	LastLogin   *time.Time `json:"last_login"`
 	LastIP      string     `json:"last_ip"`
 
-	RoleIDs     []uint `json:"roles,omitempty"`
-	ResourceIDs []uint `json:"resources,omitempty"`
+	UserRoles   []UserRoleDto `json:"user_roles,omitempty"`
+	RoleIDs     []uint        `json:"roles,omitempty"`
+	ResourceIDs []uint        `json:"resources,omitempty"`
 }

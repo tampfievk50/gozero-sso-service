@@ -2,10 +2,10 @@ package middleware
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"gozero-sso-service/domain/domain-application/adapter/service"
+	"gozero-sso-service/domain/domain-core/dto"
 	"net/http"
-	"strings"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -26,22 +26,16 @@ func NewAuthMiddleware(svc *service.Service) *AuthMiddleware {
 func (m *AuthMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var (
-			domains []string
+			userRoleDtos []dto.UserRoleDto
 		)
-		sub := r.Context().Value("uid")
-		dom := r.Context().Value("dom")
+		roleRaw := r.Context().Value("roles")
+		_ = json.Unmarshal([]byte(roleRaw.(string)), &userRoleDtos)
 
-		if strings.Contains(dom.(string), ",") {
-			domains = strings.Split(dom.(string), ",")
-		} else {
-			domains = append(domains, dom.(string))
-		}
+		logx.Infof("request with role: %v", roleRaw)
 
-		logx.Infof("sub: %v, domain: %v", sub, dom)
-
-		verify, _ := m.svc.AuthService.HasPermission(r.Context(), fmt.Sprintf("%v", sub), domains, r.URL.Path, r.Method)
+		verify, _ := m.svc.AuthService.HasPermission(r.Context(), userRoleDtos, r.URL.Path, r.Method)
 		if !verify {
-			m.Logger.Errorf("Unauthorized for sub: %s, domain: %s, URL: %s, Path: %s", sub, dom, r.URL.Path, r.Method)
+			m.Logger.Errorf("Unauthorized for roles: %s, URL: %s, Path: %s", roleRaw, r.URL.Path, r.Method)
 			httpx.WriteJson(w, http.StatusForbidden, nil)
 			return
 		}

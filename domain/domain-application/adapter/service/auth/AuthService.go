@@ -2,11 +2,11 @@ package auth
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"gozero-sso-service/domain/domain-application/utils"
 	"gozero-sso-service/domain/domain-core/dto"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -19,6 +19,7 @@ func (l *service) RefreshToken(ctx context.Context) (*dto.UserToken, error) {
 }
 
 func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, config *dto.ConfigDto) (*dto.UserToken, error) {
+	role := make([]byte, 0)
 	user, err := l.rp.UserRepository.GetUserByMail(ctx, &userLoginDto.Email)
 
 	if err != nil {
@@ -31,11 +32,15 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 		return nil, errors.New("invalid username or password")
 	}
 
+	if len(user.UserRoles) > 0 {
+		role, err = json.Marshal(user.UserRoles)
+	}
+
 	now := time.Now().Unix()
 	accessToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uid":      user.ID,
 		"username": user.Username,
-		"dom":      strings.Trim(strings.Replace(fmt.Sprint(user.ResourceIDs), " ", ",", -1), "[]"),
+		"roles":    string(role),
 		"iat":      now,
 		"exp":      now + config.Auth.AccessExpire,
 	}).SignedString([]byte(config.Auth.AccessSecret))
@@ -58,9 +63,13 @@ func (l *service) Login(ctx context.Context, userLoginDto *dto.UserLoginDto, con
 	return &dto.UserToken{AccessToken: accessToken, RefreshToken: refreshToken}, nil
 }
 
-func (l *service) HasPermission(ctx context.Context, sub string, doms []string, path, method string) (bool, error) {
-	for _, domainId := range doms {
-		enforce, err := l.enforcer.Enforcer.Enforce(sub, domainId, path, method)
+func (l *service) HasPermission(ctx context.Context, userRoleDtos []dto.UserRoleDto, path, method string) (bool, error) {
+	for _, userRoleDto := range userRoleDtos {
+		enforce, err := l.enforcer.Enforcer.Enforce(
+			fmt.Sprintf("%v", userRoleDto.RoleID),
+			fmt.Sprintf("%v", userRoleDto.ResourceID),
+			path,
+			method)
 		if err != nil {
 			logx.WithContext(ctx).Errorf("casbin error: %v", err.Error())
 		}

@@ -17,6 +17,8 @@ type User struct {
 	FirstName   string     `gorm:"size:255" json:"first_name"`
 	LastName    string     `gorm:"size:255" json:"last_name"`
 	IsActive    bool       `gorm:"default:true" json:"is_active"`
-	
+
+	UserRoles []UserRole `gorm:"foreignKey:UserID;references:ID"`
+	Roles     []Role     `gorm:"many2many:user_role;joinForeignKey:UserID;joinReferences:RoleID" json:"roles"`
 	Resources []Resource `gorm:"many2many:user_resource;joinForeignKey:UserID;joinReferences:ResourceID" json:"resources"`
 }

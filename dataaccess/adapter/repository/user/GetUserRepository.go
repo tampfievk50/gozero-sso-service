@@ -23,17 +23,13 @@ func (r *repository) GetUserByMail(ctx context.Context, email *string) (*dto.Use
 		user    model.User
 		userDto dto.UserDTO
 	)
-	result := r.db.Connection.Preload("Resources").Where("email = ?", email).First(&user)
+	result := r.db.Connection.Preload("UserRoles").Where("email = ?", email).First(&user)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 	err := copier.Copy(&userDto, &user)
 	if err != nil {
 		return nil, err
-	}
-
-	for _, id := range user.Resources {
-		userDto.ResourceIDs = append(userDto.ResourceIDs, id.ID)
 	}
 
 	return &userDto, nil

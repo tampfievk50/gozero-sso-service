@@ -2,6 +2,14 @@
 -- Sequence Definitions
 -- ===============================
 
+CREATE SEQUENCE IF NOT EXISTS resource_seq
+    INCREMENT BY 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    START 1
+    CACHE 1
+    NO CYCLE;
+
 CREATE SEQUENCE IF NOT EXISTS permission_seq
     INCREMENT BY 1
     MINVALUE 1
@@ -25,6 +33,26 @@ CREATE SEQUENCE IF NOT EXISTS user_seq
     START 1
     CACHE 1
     NO CYCLE;
+
+
+-- ===============================
+-- resource table definition
+-- ===============================
+
+CREATE TABLE IF NOT EXISTS "resource" (
+    id          BIGINT NOT NULL DEFAULT nextval('resource_seq'::regclass),
+    name        VARCHAR(255),
+    description VARCHAR(255),
+    created_at  TIMESTAMP(6),
+    updated_at  TIMESTAMP(6),
+    deleted_at  TIMESTAMP(6),
+    created_by  BIGINT,
+    updated_by  BIGINT,
+    deleted_by  BIGINT,
+    is_deleted    BOOLEAN DEFAULT false,
+
+    PRIMARY KEY (id)
+    );
 
 
 -- ===============================
@@ -96,6 +124,34 @@ CREATE TABLE IF NOT EXISTS "user" (
     is_active     BOOLEAN DEFAULT true,
 
     PRIMARY KEY (id)
+);
+
+-- ===============================
+-- user_resource table definition
+-- ===============================
+
+CREATE TABLE IF NOT EXISTS user_resource (
+    resource_id BIGINT NOT NULL,
+    user_id     BIGINT NOT NULL,
+
+    PRIMARY KEY (resource_id, user_id),
+    CONSTRAINT fk_user_resource_user_id FOREIGN KEY (user_id) REFERENCES "user" (id),
+    CONSTRAINT fk_user_resource_resource_id FOREIGN KEY (resource_id) REFERENCES "resource" (id)
+);
+
+-- ===============================
+-- User Role Table
+-- ===============================
+
+CREATE TABLE IF NOT EXISTS user_role (
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    resource_id BIGINT NOT NULL,
+
+    PRIMARY KEY (role_id, user_id, resource_id),
+    CONSTRAINT fk_user_role_user_id FOREIGN KEY (user_id) REFERENCES "user" (id),
+    CONSTRAINT fk_user_role_role_id FOREIGN KEY (role_id) REFERENCES "role" (id),
+    CONSTRAINT fk_user_role_resource_id FOREIGN KEY (resource_id) REFERENCES "resource" (id)
 );
 
 INSERT INTO "role" ("name", description, created_at, updated_at, deleted_at, created_by, updated_by, deleted_by)

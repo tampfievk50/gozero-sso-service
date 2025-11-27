@@ -45,11 +45,6 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				},
 				{
 					Method:  http.MethodPost,
-					Path:    "/account/add-group-policy",
-					Handler: user.AddGroupPolicyHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodPost,
 					Path:    "/account/add-policy",
 					Handler: role.AddPolicyHandler(serverCtx),
 				},
