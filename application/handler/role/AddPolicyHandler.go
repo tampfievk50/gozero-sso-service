@@ -29,8 +29,7 @@ func AddPolicyHandler(svcCtx servicecontext.ServiceContextInterface) http.Handle
 			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, err.Error(), nil))
 			return
 		}
-		svcCtx := svcCtx.(*svc.ServiceContext)
-		err = svcCtx.Svc.RoleService.AddPolicy(r.Context(), &rolePermissionDto)
+		err = svcCtx.(*svc.ServiceContext).Svc.RoleService.AddPolicy(r.Context(), &rolePermissionDto)
 		if err != nil {
 			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
