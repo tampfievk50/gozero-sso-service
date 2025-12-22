@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 	"errors"
-	"gozero-sso-service/domain/domain-application/utils"
 	"gozero-sso-service/domain/domain-core/dto"
+	"gozero-sso-service/domain/domain-core/utils"
 )
 
 func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {

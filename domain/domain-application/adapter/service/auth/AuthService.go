@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"gozero-sso-service/domain/domain-application/utils"
 	"gozero-sso-service/domain/domain-core/dto"
+	"gozero-sso-service/domain/domain-core/utils"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"

@@ -12,6 +12,17 @@ import (
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
+// LoginHandler godoc
+//
+//	@Security		BearerAuth
+//	@Summary		User login
+//	@Description	User login
+//	@Tags			AuthHandler
+//	@Accept			json
+//	@Produce		json
+//	@Param			X-Profile-ID	header		string	true	"Profile ID"
+//	@Success		200				{object}	types.Response
+//	@Router			/v1/auth/login [get]
 func LoginHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var (
