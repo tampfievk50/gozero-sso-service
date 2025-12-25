@@ -23,7 +23,7 @@ Db:
   Driver: postgres
   Primary:
     DatabaseName: "account_service"
-    Host: "192.168.19.61"
+    Host: "192.168.19.61,192.168.19.62,192.168.19.63"
     Port: "5432"
     Username: "mobimusic"
     Password: "mobimusic@123"
@@ -33,7 +33,7 @@ Db:
     TimeZone: "Asia/Ho_Chi_Minh"
   Replicas:
     DatabaseName: "account_service"
-    Host: "192.168.19.61"
+    Host: "192.168.19.61,192.168.19.62,192.168.19.63"
     Port: "5432"
     Username: "mobimusic"
     Password: "mobimusic@123"

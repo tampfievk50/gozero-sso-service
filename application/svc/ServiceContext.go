@@ -4,8 +4,8 @@ import (
 	"context"
 	"gozero-sso-service/application/config"
 	"gozero-sso-service/application/middleware"
-	"gozero-sso-service/dataaccess/adapter/repository"
 	"gozero-sso-service/domain/domain-application/adapter/service"
+	"gozero-sso-service/domain/domain-core/port/output/repository"
 
 	"github.com/casbin/casbin/v2"
 	"github.com/redis/go-redis/v9"

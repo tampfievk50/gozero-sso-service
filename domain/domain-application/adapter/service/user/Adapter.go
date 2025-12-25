@@ -2,8 +2,8 @@ package user
 
 import (
 	"github.com/casbin/casbin/v2"
-	"gozero-sso-service/dataaccess/adapter/repository"
 	iport "gozero-sso-service/domain/domain-core/port/input/service"
+	"gozero-sso-service/domain/domain-core/port/output/repository"
 )
 
 type service struct {
