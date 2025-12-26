@@ -8,7 +8,7 @@ require (
 	github.com/jinzhu/copier v0.4.0
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/swaggo/swag v1.16.6
-	github.com/tampfievk50/gozero-core-api v0.0.0-20251120061254-96f51ef4d750
+	github.com/tampfievk50/gozero-core-api v0.0.0-20251226020033-04bacbb87598
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
 	golang.org/x/crypto v0.45.0

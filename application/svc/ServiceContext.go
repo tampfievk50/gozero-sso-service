@@ -68,3 +68,12 @@ func NewServiceContext(c config.Config) servicecontext.ServiceContextInterface {
 func (svc *ServiceContext) GetLogger(ctx context.Context) logx.Logger {
 	return logx.WithContext(ctx)
 }
+
+func (svc *ServiceContext) Close() error {
+	logx.Infof("closing the database connection...")
+	sqlDB, err := svc.DB.Connection.DB()
+	if err != nil {
+		return err
+	}
+	return sqlDB.Close()
+}

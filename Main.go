@@ -30,6 +30,7 @@ func main() {
 
 	serviceCtx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, serviceCtx)
+	defer serviceCtx.Close()
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Rest.Host, c.Rest.Port)
 	server.Start()
