@@ -67,3 +67,46 @@ func (r *repository) GetUserByMail(ctx context.Context, email *string) (*dto.Use
 
 	return &userDto, nil
 }
+
+func (r *repository) GetUserByUsername(ctx context.Context, username string) (*dto.UserDTO, error) {
+	var (
+		user    model.User
+		userDto dto.UserDTO
+	)
+	result := r.db.Connection.
+		Where("username = ?", username).
+		Where("is_deleted = ?", false).
+		First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	err := copier.Copy(&userDto, &user)
+	if err != nil {
+		return nil, err
+	}
+	return &userDto, nil
+}
+
+func (r *repository) ExistsByEmail(ctx context.Context, email string) (bool, error) {
+	var count int64
+	err := r.db.Connection.Model(&model.User{}).
+		Where("email = ?", email).
+		Where("is_deleted = ?", false).
+		Count(&count).Error
+	if err != nil {
+		return false, err
+	}
+	return count > 0, nil
+}
+
+func (r *repository) ExistsByUsername(ctx context.Context, username string) (bool, error) {
+	var count int64
+	err := r.db.Connection.Model(&model.User{}).
+		Where("username = ?", username).
+		Where("is_deleted = ?", false).
+		Count(&count).Error
+	if err != nil {
+		return false, err
+	}
+	return count > 0, nil
+}

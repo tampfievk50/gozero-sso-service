@@ -1,6 +1,7 @@
 package repository
 
 type Repository struct {
-	UserRepository UserRepository
-	RoleRepository RoleRepository
+	UserRepository       UserRepository
+	RoleRepository       RoleRepository
+	PermissionRepository PermissionRepository
 }

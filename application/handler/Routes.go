@@ -2,6 +2,8 @@ package handler
 
 import (
 	"gozero-sso-service/application/handler/auth"
+	"gozero-sso-service/application/handler/permission"
+	"gozero-sso-service/application/handler/resource"
 	"gozero-sso-service/application/handler/role"
 	"gozero-sso-service/application/handler/user"
 	"gozero-sso-service/application/svc"
@@ -47,6 +49,28 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 					Method:  http.MethodPost,
 					Path:    "/account/add-policy",
 					Handler: role.AddPolicyHandler(serverCtx),
+				},
+				// User-Role assignment
+				{
+					Method:  http.MethodGet,
+					Path:    "/account/:id/roles",
+					Handler: user.GetRolesHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/account/:id/roles",
+					Handler: user.AssignRolesHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/account/:id/roles",
+					Handler: user.RemoveRoleHandler(serverCtx),
+				},
+				// User permissions
+				{
+					Method:  http.MethodGet,
+					Path:    "/account/:id/permissions",
+					Handler: user.GetPermissionsHandler(serverCtx),
 				},
 			}...,
 		),
@@ -107,6 +131,105 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 					Method:  http.MethodDelete,
 					Path:    "/role/:id",
 					Handler: role.DeleteHandler(serverCtx),
+				},
+				// Role policies
+				{
+					Method:  http.MethodGet,
+					Path:    "/role/:id/policies",
+					Handler: role.GetRolePoliciesHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
+		rest.WithPrefix("/v1"),
+	)
+
+	// Permission routes
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/permission",
+					Handler: permission.GetPageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/permission/:id",
+					Handler: permission.GetHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/permission",
+					Handler: permission.CreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/permission/:id",
+					Handler: permission.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/permission/:id",
+					Handler: permission.DeleteHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
+		rest.WithPrefix("/v1"),
+	)
+
+	// Resource routes
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/resource",
+					Handler: resource.GetPageHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/resource",
+					Handler: resource.CreateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/resource/:id",
+					Handler: resource.UpdateHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/resource/:id",
+					Handler: resource.DeleteHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
+		rest.WithPrefix("/v1"),
+	)
+
+	// Policy routes
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.(*svc.ServiceContext).AuthMiddleware},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/policy",
+					Handler: role.GetPoliciesHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/policy",
+					Handler: role.AddPolicyHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/policy",
+					Handler: role.DeletePolicyHandler(serverCtx),
 				},
 			}...,
 		),

@@ -6,6 +6,5 @@ import (
 )
 
 func (l *service) UpdateRole(ctx context.Context, roleDto *dto.RoleDTO) error {
-	//TODO implement me
-	panic("implement me")
+	return l.rp.RoleRepository.UpdateRole(ctx, roleDto)
 }

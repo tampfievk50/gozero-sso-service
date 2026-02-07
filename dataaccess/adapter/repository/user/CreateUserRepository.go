@@ -21,5 +21,6 @@ func (r *repository) CreateUser(ctx context.Context, userDto *dto.UserDTO) error
 	if err = r.db.Connection.Create(&user).Error; err != nil {
 		return err
 	}
+	userDto.ID = user.ID
 	return nil
 }

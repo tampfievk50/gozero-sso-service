@@ -12,4 +12,10 @@ type UserRepository interface {
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error
 	DeleteUser(ctx context.Context, id uint) error
 	GetUserByMail(ctx context.Context, email *string) (*dto.UserDTO, error)
+	GetUserByUsername(ctx context.Context, username string) (*dto.UserDTO, error)
+	ExistsByEmail(ctx context.Context, email string) (bool, error)
+	ExistsByUsername(ctx context.Context, username string) (bool, error)
+	GetUserRoles(ctx context.Context, userId uint) ([]dto.RoleDTO, error)
+	AssignRoles(ctx context.Context, userId uint, roleIDs []uint, domainID uint) error
+	RemoveRole(ctx context.Context, userId uint, roleID uint, domainID uint) error
 }

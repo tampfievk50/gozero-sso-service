@@ -5,12 +5,10 @@ import (
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
-func (l *service) GetAllRoles(ctx context.Context) ([]dto.RoleDTO, error) {
-	//TODO implement me
-	panic("implement me")
+func (l *service) GetAllRoles(ctx context.Context, pager *dto.PagerDto) ([]dto.RoleDTO, error) {
+	return l.rp.RoleRepository.GetAllRoles(ctx, pager)
 }
 
 func (l *service) GetRole(ctx context.Context, id uint) (*dto.RoleDTO, error) {
-	//TODO implement me
-	panic("implement me")
+	return l.rp.RoleRepository.GetRole(ctx, id)
 }

@@ -1,18 +1,18 @@
 package types
 
 type CreateRoleRequest struct {
-	Name        string `json:"name" binding:"required"`
-	Description string `json:"description"`
-	ResourceID  *uint  `json:"resource_id"`
+	Name        string `json:"name"`
+	Description string `json:"description,optional"`
+	ResourceID  *uint  `json:"resource_id,optional"`
 	// If your system supports permissions per role
-	PermissionIDs []uint `json:"permission_ids"`
+	PermissionIDs []uint `json:"permission_ids,optional"`
 }
 
 type UpdateRoleRequest struct {
-	Name          *string `json:"name,omitempty"`
-	Description   *string `json:"description,omitempty"`
-	ResourceID    *uint   `json:"resource_id,omitempty"`
-	PermissionIDs []uint  `json:"permission_ids,omitempty"`
+	Name          *string `json:"name,optional"`
+	Description   *string `json:"description,optional"`
+	ResourceID    *uint   `json:"resource_id,optional"`
+	PermissionIDs []uint  `json:"permission_ids,optional"`
 }
 
 type RoleFilterRequest struct {

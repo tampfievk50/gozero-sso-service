@@ -1,6 +1,6 @@
 module gozero-sso-service
 
-go 1.24.5
+go 1.26
 
 require (
 	github.com/casbin/casbin/v2 v2.109.0
@@ -8,7 +8,7 @@ require (
 	github.com/jinzhu/copier v0.4.0
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/swaggo/swag v1.16.6
-	github.com/tampfievk50/gozero-core-api v0.0.0-20251226020033-04bacbb87598
+	github.com/tampfievk50/gozero-core-api v0.0.0-20260206024255-ca3873ad3b19
 	github.com/zeromicro/go-queue v1.2.2
 	github.com/zeromicro/go-zero v1.8.5
 	golang.org/x/crypto v0.45.0

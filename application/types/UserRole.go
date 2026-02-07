@@ -5,3 +5,13 @@ type UserRoleRequest struct {
 	RoleID   []uint `json:"roles"`
 	DomainID uint   `json:"domain_id"`
 }
+
+type AssignRolesRequest struct {
+	RoleIDs  []uint `json:"roles"`
+	DomainID uint   `json:"domain_id"`
+}
+
+type RemoveRoleRequest struct {
+	RoleID   uint `json:"role_id"`
+	DomainID uint `json:"domain_id"`
+}

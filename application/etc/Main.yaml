@@ -17,27 +17,27 @@ Rest:
 
 Pager:
   page: 1
-  size: 20
+  size: 10
 
 Db:
   Driver: postgres
   Primary:
-    DatabaseName: "account_service"
-    Host: "192.168.19.61,192.168.19.62,192.168.19.63"
+    DatabaseName: "lttsale"
+    Host: "localhost"
     Port: "5432"
-    Username: "mobimusic"
-    Password: "mobimusic@123"
-    SearchPath: "account_service,public"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "sso,public"
     TargetSessionAttrs: "primary"
     SSLMode: "disable"
     TimeZone: "Asia/Ho_Chi_Minh"
   Replicas:
-    DatabaseName: "account_service"
-    Host: "192.168.19.61,192.168.19.62,192.168.19.63"
+    DatabaseName: "lttsale"
+    Host: "localhost"
     Port: "5432"
-    Username: "mobimusic"
-    Password: "mobimusic@123"
-    SearchPath: "account_service,public"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "sso,public"
     TargetSessionAttrs: "prefer-standby"
     SSLMode: "disable"
     TimeZone: "Asia/Ho_Chi_Minh"
@@ -63,7 +63,7 @@ Casx:
   ModelFile: "application/etc/casx/model.casbin.conf"
   PolicyFile: "application/etc/casx/policy.casbin.csv"
   EnableLog: true
-  InitPolicy: true
+  InitPolicy: false
   TableName: "role_permission"
   EnableWatcher: true
   WatcherChannel: "casbin_rule_update"

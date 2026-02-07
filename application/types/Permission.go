@@ -1,17 +1,17 @@
 package types
 
 type CreatePermissionRequest struct {
-	Name        string `json:"name" binding:"required"`
-	Description string `json:"description"`
-	Path        string `json:"path" binding:"required"`
-	Action      string `json:"action" binding:"required"`
+	Name        string `json:"name"`
+	Description string `json:"description,optional"`
+	Path        string `json:"path"`
+	Action      string `json:"action"`
 }
 
 type UpdatePermissionRequest struct {
-	Name        *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Path        *string `json:"path,omitempty"`
-	Action      *string `json:"action,omitempty"`
+	Name        *string `json:"name,optional"`
+	Description *string `json:"description,optional"`
+	Path        *string `json:"path,optional"`
+	Action      *string `json:"action,optional"`
 }
 
 type PermissionFilterRequest struct {

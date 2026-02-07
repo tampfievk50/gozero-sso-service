@@ -6,4 +6,5 @@ type PermissionDTO struct {
 	Description string `json:"description"`
 	Path        string `json:"path"`
 	Action      string `json:"action"`
+	DomainID    string `json:"domain_id,omitempty"`
 }

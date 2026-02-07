@@ -25,7 +25,7 @@ func main() {
 	logx.MustSetup(c.Rest.Log)
 	logx.AddWriter(logx.NewWriter(os.Stdout))
 
-	server := rest.MustNewServer(c.Rest.RestConf)
+	server := rest.MustNewServer(c.Rest.RestConf, rest.WithCors())
 	defer server.Stop()
 
 	serviceCtx := svc.NewServiceContext(c)

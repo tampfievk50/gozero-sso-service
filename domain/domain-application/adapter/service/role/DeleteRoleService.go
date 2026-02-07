@@ -5,6 +5,5 @@ import (
 )
 
 func (l *service) DeleteRole(ctx context.Context, id uint) error {
-	//TODO implement me
-	panic("implement me")
+	return l.rp.RoleRepository.DeleteRole(ctx, id)
 }

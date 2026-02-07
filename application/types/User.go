@@ -3,17 +3,17 @@ package types
 import "time"
 
 type CreateUserRequest struct {
-	Username    string     `json:"username" binding:"required,min=3"`
-	Email       string     `json:"email" binding:"required,email"`
-	Password    string     `json:"password" binding:"required,min=6"`
-	FirstName   string     `json:"first_name"`
-	LastName    string     `json:"last_name"`
-	DateOfBirth *time.Time `json:"date_of_birth"`
-	Gender      int32      `json:"gender"` // 1=Male, 2=Female, 3=Other
-	ResourceIDs []uint     `json:"resources"`
-	IsActive    bool       `json:"is_active"`
-	IsSupper    bool       `json:"is_supper"`
-	RoleIDs     []uint     `json:"roles"` // optional list of roles to assign
+	Username    string     `json:"username"`
+	Email       string     `json:"email"`
+	Password    string     `json:"password"`
+	FirstName   string     `json:"first_name,optional"`
+	LastName    string     `json:"last_name,optional"`
+	DateOfBirth *time.Time `json:"date_of_birth,optional"`
+	Gender      int32      `json:"gender,optional"` // 1=Male, 2=Female, 3=Other
+	ResourceIDs []uint     `json:"resources,optional"`
+	IsActive    bool       `json:"is_active,optional"`
+	IsSupper    bool       `json:"is_supper,optional"`
+	RoleIDs     []uint     `json:"roles,optional"` // optional list of roles to assign
 }
 
 type UpdateUserRequest struct {

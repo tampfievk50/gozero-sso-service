@@ -2,12 +2,10 @@ package role
 
 import (
 	"gozero-sso-service/application/svc"
+	"gozero-sso-service/application/types"
 	"net/http"
 
 	"github.com/tampfievk50/gozero-core-api/servicecontext"
-
-	"gozero-sso-service/application/types"
-
 	"github.com/zeromicro/go-zero/rest/httpx"
 )
 
@@ -15,15 +13,15 @@ func DeleteHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req types.IdPathRequest
 		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, err.Error(), nil))
 			return
 		}
 
-		err := svcCtx.(*svc.ServiceContext).Svc.RoleService.DeleteRole(r.Context(), 0)
+		err := svcCtx.(*svc.ServiceContext).Svc.RoleService.DeleteRole(r.Context(), req.Id)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, req)
+			httpx.WriteJson(w, http.StatusOK, types.VResponse(http.StatusOK, http.StatusText(http.StatusOK), nil))
 		}
 	}
 }

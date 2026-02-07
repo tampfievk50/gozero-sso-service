@@ -11,4 +11,8 @@ type UserService interface {
 	CreateUser(ctx context.Context, createUserRequest *dto.UserDTO) error
 	UpdateUser(ctx context.Context, userDto *dto.UserDTO) error
 	DeleteUser(ctx context.Context, id uint) error
+	GetUserRoles(ctx context.Context, userId uint) ([]dto.RoleDTO, error)
+	AssignRoles(ctx context.Context, userId uint, roleIDs []uint, domainID uint) error
+	RemoveRole(ctx context.Context, userId uint, roleID uint, domainID uint) error
+	GetUserPermissions(ctx context.Context, userId uint) ([]dto.PermissionDTO, error)
 }

@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"gozero-sso-service/dataaccess/adapter/repository/permission"
 	"gozero-sso-service/dataaccess/adapter/repository/role"
 	"gozero-sso-service/dataaccess/adapter/repository/user"
 	"gozero-sso-service/domain/domain-core/port/output/repository"
@@ -10,7 +11,8 @@ import (
 
 func InitRepository(database *ormx.Database) *repository.Repository {
 	return &repository.Repository{
-		UserRepository: user.NewUserRepository(database),
-		RoleRepository: role.NewRoleRepository(database),
+		UserRepository:       user.NewUserRepository(database),
+		RoleRepository:       role.NewRoleRepository(database),
+		PermissionRepository: permission.NewPermissionRepository(database),
 	}
 }
