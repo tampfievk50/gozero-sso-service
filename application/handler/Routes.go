@@ -75,7 +75,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	server.AddRoutes(
@@ -89,7 +89,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				},
 			}...,
 		),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	server.AddRoutes(
@@ -100,7 +100,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 				Handler: auth.LoginHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	server.AddRoutes(
@@ -141,7 +141,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	// Permission routes
@@ -177,7 +177,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	// Resource routes
@@ -208,7 +208,7 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 
 	// Policy routes
@@ -234,6 +234,6 @@ func RegisterHandlers(server *rest.Server, serverCtx servicecontext.ServiceConte
 			}...,
 		),
 		rest.WithJwt(serverCtx.(*svc.ServiceContext).Config.Auth.AccessSecret),
-		rest.WithPrefix("/v1"),
+		rest.WithPrefix("/sso/v1"),
 	)
 }
