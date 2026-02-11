@@ -1,0 +1,100 @@
+Rest:
+  Name: main
+  Host: 0.0.0.0
+  Port: 9091
+  CorsOrigins:
+    - "*"
+  Log:
+    Level: info
+    Path: logs
+    Mode: file
+    MaxSize: 20
+    MaxBackups: 10
+    MaxAge: 30
+    Compress: true
+    Rotation: daily
+    KeepDays: 30
+
+Pager:
+  page: 1
+  size: 10
+
+Db:
+  Driver: postgres
+  Primary:
+    DatabaseName: "lttsale"
+    Host: "postgres16"
+    Port: "5432"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "sso,public"
+    TargetSessionAttrs: "primary"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  Replicas:
+    DatabaseName: "lttsale"
+    Host: "localhost"
+    Port: "5432"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "sso,public"
+    TargetSessionAttrs: "prefer-standby"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  MaxPoolSize: 20
+  MaxIdleSize: 10
+  MaxLeftTime: 5
+  MigrationDir: "file://application/migration"
+  LogLevel: 4 # 1 - Silent | 2 - Error | 3 - Warn | 4 - Info
+  PrepareStmt: true
+  SkipDefaultTransaction: true
+  SingularTable: true
+  Sync: true
+  DropTable: false
+  DisableForeignKeyConstraintWhenMigrating: false
+
+Auth:
+  AccessSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
+  AccessExpire: 3600
+  RefreshSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
+  RefreshExpire: 15552000
+
+Casx:
+  ModelFile: "application/etc/casx/model.casbin.conf"
+  PolicyFile: "application/etc/casx/policy.casbin.csv"
+  EnableLog: true
+  InitPolicy: false
+  TableName: "role_permission"
+  EnableWatcher: true
+  WatcherChannel: "casbin_rule_update"
+  LocalID: "sso_service"
+  NotifySelf: false
+  Verbose: false
+
+Redis:
+  Addr: "192.168.19.16:6379"
+  Password: "eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81"
+  DB: 1
+
+EnableMessaging: true
+
+KqPusherConf:
+  Brokers:
+    - localhost:19092
+    - localhost:29092
+    - localhost:39092
+  Topics:
+    - notify-send-email
+    - notify-send-sms
+    - contract-service-auth-activity
+    - delete-user
+    - iam-auto-resend
+
+KqConsumerConf:
+  Name: account-service
+  Brokers:
+    - localhost:19092
+    - localhost:29092
+    - localhost:39092
+  Group: account-service-group
+  Topic: notify-send-email

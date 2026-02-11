@@ -1,0 +1,83 @@
+Name: lttsale-cms
+Host: 0.0.0.0
+Port: 8002
+
+Log:
+  Mode: console
+  Level: info
+
+Db:
+  Driver: postgres
+  Primary:
+    DatabaseName: "lttsale"
+    Host: "postgres16"
+    Port: "5432"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "cms,public"
+    TargetSessionAttrs: "primary"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  Replicas:
+    DatabaseName: "lttsale"
+    Host: "localhost"
+    Port: "5432"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "cms,public"
+    TargetSessionAttrs: "prefer-standby"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  MaxPoolSize: 100
+  MaxIdleSize: 10
+  MaxLeftTime: 5
+  MigrationDir: "file://application/migration"
+  LogLevel: 4
+  PrepareStmt: true
+  SkipDefaultTransaction: true
+  SingularTable: true
+  Sync: true
+  DropTable: false
+  DisableForeignKeyConstraintWhenMigrating: false
+
+CasbinDb:
+  Driver: postgres
+  Primary:
+    DatabaseName: "lttsale"
+    Host: "localhost"
+    Port: "5432"
+    Username: "altsys"
+    Password: "altsys@123"
+    SearchPath: "sso,public"
+    TargetSessionAttrs: "primary"
+    SSLMode: "disable"
+    TimeZone: "Asia/Ho_Chi_Minh"
+  MaxPoolSize: 10
+  MaxIdleSize: 5
+  MaxLeftTime: 5
+  MigrationDir: ""
+
+JWT:
+  SecretKey: "ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV"
+  AccessExpire: 3600
+  RefreshExpire: 15552000
+  Issuer: "lttsale-sso"
+
+Casx:
+  ModelFile: "application/etc/casx/model.casbin.conf"
+  PolicyFile: "application/etc/casx/policy.casbin.csv"
+  EnableLog: true
+  InitPolicy: false
+  TableName: "role_permission"
+  EnableWatcher: true
+  WatcherChannel: "casbin_rule_update"
+  LocalID: "cms_api"
+  NotifySelf: false
+  Verbose: false
+
+
+Pager:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+
+UploadDir: "uploads"
