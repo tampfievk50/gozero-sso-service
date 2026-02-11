@@ -3,7 +3,6 @@ package role
 import (
 	"context"
 	"errors"
-	"fmt"
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
@@ -20,15 +19,15 @@ func (l *service) AddPolicy(ctx context.Context, rolePermissionDto *dto.RolePerm
 	rules := make([][]string, 0)
 	for _, v := range rolePermissionDto.RoleID {
 		rules = append(rules, []string{
-			fmt.Sprintf("%d", v),
-			fmt.Sprintf("%d", rolePermissionDto.DomainID),
+			v,
+			rolePermissionDto.DomainID,
 			rolePermissionDto.Path,
 			rolePermissionDto.Action,
 			rolePermissionDto.Access,
 		})
 		_, err = l.enforcer.RemoveFilteredPolicy(0,
-			fmt.Sprintf("%d", v),
-			fmt.Sprintf("%d", rolePermissionDto.DomainID),
+			v,
+			rolePermissionDto.DomainID,
 			rolePermissionDto.Path,
 			rolePermissionDto.Action)
 		if err != nil {

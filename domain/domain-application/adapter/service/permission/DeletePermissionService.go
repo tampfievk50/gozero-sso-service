@@ -4,6 +4,6 @@ import (
 	"context"
 )
 
-func (l *service) DeletePermission(ctx context.Context, id uint) error {
+func (l *service) DeletePermission(ctx context.Context, id string) error {
 	return l.rp.PermissionRepository.DeletePermission(ctx, id)
 }

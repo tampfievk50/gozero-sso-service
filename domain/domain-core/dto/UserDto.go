@@ -3,7 +3,7 @@ package dto
 import "time"
 
 type UserDTO struct {
-	ID          uint       `json:"id"`
+	ID          string     `json:"id"`
 	Username    string     `json:"username"`
 	Email       string     `json:"email"`
 	Password    string     `json:"-"`
@@ -19,6 +19,6 @@ type UserDTO struct {
 	LastIP      string     `json:"last_ip"`
 
 	UserRoles   []UserRoleDto `json:"user_roles,omitempty"`
-	RoleIDs     []uint        `json:"roles,omitempty"`
-	ResourceIDs []uint        `json:"resources,omitempty"`
+	RoleIDs     []string      `json:"roles,omitempty"`
+	ResourceIDs []string      `json:"resources,omitempty"`
 }

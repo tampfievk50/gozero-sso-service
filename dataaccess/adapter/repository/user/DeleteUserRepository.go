@@ -6,9 +6,9 @@ import (
 	"gozero-sso-service/dataaccess/model"
 )
 
-func (r *repository) DeleteUser(ctx context.Context, id uint) error {
+func (r *repository) DeleteUser(ctx context.Context, id string) error {
 	var user model.User
-	err := r.db.Connection.First(&user, id).Error
+	err := r.db.Connection.First(&user, "id = ?", id).Error
 	if err != nil {
 		return err
 	}

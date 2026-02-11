@@ -10,7 +10,7 @@ import (
 func (r *repository) UpdateRole(ctx context.Context, roleDto *dto.RoleDTO) error {
 	var role model.Role
 
-	err := r.db.Connection.First(&role, roleDto.ID).Error
+	err := r.db.Connection.First(&role, "id = ?", roleDto.ID).Error
 	if err != nil {
 		return err
 	}

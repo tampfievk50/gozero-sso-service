@@ -2,7 +2,6 @@ package permission
 
 import (
 	"context"
-	"fmt"
 	"gozero-sso-service/domain/domain-core/dto"
 	"log"
 )
@@ -21,7 +20,7 @@ func (l *service) CreatePermission(ctx context.Context, permissionDto *dto.Permi
 		return nil
 	}
 
-	roleID := fmt.Sprintf("%d", adminRole.ID)
+	roleID := adminRole.ID
 	// Remove existing policy first to avoid duplicates
 	_, _ = l.enforcer.RemoveFilteredPolicy(0, roleID, "0", permissionDto.Path, permissionDto.Action)
 	_, err = l.enforcer.AddPolicy(roleID, "0", permissionDto.Path, permissionDto.Action, "allow")

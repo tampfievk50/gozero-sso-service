@@ -1,6 +1,6 @@
 module gozero-sso-service
 
-go 1.26
+go 1.24.13
 
 require (
 	github.com/casbin/casbin/v2 v2.109.0

@@ -2,23 +2,22 @@ package user
 
 import (
 	"context"
-	"fmt"
 	"gozero-sso-service/domain/domain-core/dto"
 )
 
-func (l *service) GetUserRoles(ctx context.Context, userId uint) ([]dto.RoleDTO, error) {
+func (l *service) GetUserRoles(ctx context.Context, userId string) ([]dto.RoleDTO, error) {
 	return l.rp.UserRepository.GetUserRoles(ctx, userId)
 }
 
-func (l *service) AssignRoles(ctx context.Context, userId uint, roleIDs []uint, domainID uint) error {
+func (l *service) AssignRoles(ctx context.Context, userId string, roleIDs []string, domainID string) error {
 	return l.rp.UserRepository.AssignRoles(ctx, userId, roleIDs, domainID)
 }
 
-func (l *service) RemoveRole(ctx context.Context, userId uint, roleID uint, domainID uint) error {
+func (l *service) RemoveRole(ctx context.Context, userId string, roleID string, domainID string) error {
 	return l.rp.UserRepository.RemoveRole(ctx, userId, roleID, domainID)
 }
 
-func (l *service) GetUserPermissions(ctx context.Context, userId uint) ([]dto.PermissionDTO, error) {
+func (l *service) GetUserPermissions(ctx context.Context, userId string) ([]dto.PermissionDTO, error) {
 	// Get user's role assignments (includes ResourceID / domain)
 	userRoles, err := l.rp.UserRepository.GetUserRoles(ctx, userId)
 	if err != nil {
@@ -32,13 +31,13 @@ func (l *service) GetUserPermissions(ctx context.Context, userId uint) ([]dto.Pe
 	}
 	assignments := make([]roleDomain, 0, len(userRoles))
 	for _, ur := range userRoles {
-		var domID uint
+		domID := ""
 		if ur.ResourceID != nil {
 			domID = *ur.ResourceID
 		}
 		assignments = append(assignments, roleDomain{
-			roleID:   fmt.Sprintf("%d", ur.ID),
-			domainID: fmt.Sprintf("%d", domID),
+			roleID:   ur.ID,
+			domainID: domID,
 		})
 	}
 
@@ -70,7 +69,7 @@ func (l *service) GetUserPermissions(ctx context.Context, userId uint) ([]dto.Pe
 	}
 
 	// Check if user is super admin — grant all
-	user, err := l.rp.UserRepository.GetUser(ctx, &userId)
+	user, err := l.rp.UserRepository.GetUser(ctx, userId)
 	if err == nil && user != nil && user.IsSupper {
 		allPolicies, err := l.enforcer.GetPolicy()
 		if err == nil {

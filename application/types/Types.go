@@ -1,7 +1,7 @@
 package types
 
 type IdPathRequest struct {
-	Id uint `path:"id,omitempty,optional"`
+	Id string `path:"id,omitempty,optional"`
 }
 
 type AddJob struct {
@@ -12,7 +12,7 @@ type AddJob struct {
 }
 
 type Job struct {
-	ID         *uint   `json:"id,omitempty"`
+	ID         *string `json:"id,omitempty"`
 	Name       string  `json:"name"`
 	Expression string  `json:"expression"`
 	Status     bool    `json:"status"`
@@ -21,7 +21,7 @@ type Job struct {
 }
 
 type JobUpdate struct {
-	ID         uint   `path:"id"`
+	ID         string `path:"id"`
 	Expression string `json:"expression,optional"`
 	Status     bool   `json:"status,optional"`
 	TableName  string `json:"table,optional"`
@@ -34,7 +34,7 @@ type AddTask struct {
 }
 
 type Task struct {
-	ID          *uint   `json:"id,omitempty"`
+	ID          *string `json:"id,omitempty"`
 	Name        string  `json:"name"`
 	Description *string `json:"description"`
 	Status      bool    `json:"status"`

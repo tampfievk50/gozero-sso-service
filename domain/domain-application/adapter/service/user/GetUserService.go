@@ -9,6 +9,6 @@ func (l *service) GetAllUsers(ctx context.Context, pager *dto.PagerDto) ([]dto.U
 	return l.rp.UserRepository.GetAllUsers(ctx, pager)
 }
 
-func (l *service) GetUser(ctx context.Context, id uint) (*dto.UserDTO, error) {
-	return l.rp.UserRepository.GetUser(ctx, &id)
+func (l *service) GetUser(ctx context.Context, id string) (*dto.UserDTO, error) {
+	return l.rp.UserRepository.GetUser(ctx, id)
 }

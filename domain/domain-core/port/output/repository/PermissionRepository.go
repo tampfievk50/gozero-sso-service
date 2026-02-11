@@ -7,8 +7,8 @@ import (
 
 type PermissionRepository interface {
 	GetAllPermissions(ctx context.Context, pager *dto.PagerDto) ([]dto.PermissionDTO, error)
-	GetPermission(ctx context.Context, id uint) (*dto.PermissionDTO, error)
+	GetPermission(ctx context.Context, id string) (*dto.PermissionDTO, error)
 	CreatePermission(ctx context.Context, permissionDto *dto.PermissionDTO) error
 	UpdatePermission(ctx context.Context, permissionDto *dto.PermissionDTO) error
-	DeletePermission(ctx context.Context, id uint) error
+	DeletePermission(ctx context.Context, id string) error
 }

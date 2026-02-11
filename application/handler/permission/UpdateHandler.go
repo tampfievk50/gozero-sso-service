@@ -5,7 +5,6 @@ import (
 	"gozero-sso-service/application/types"
 	"gozero-sso-service/domain/domain-core/dto"
 	"net/http"
-	"strconv"
 
 	"github.com/tampfievk50/gozero-core-api/servicecontext"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -16,11 +15,6 @@ func UpdateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := pathvar.Vars(r)
 		idStr := vars["id"]
-		id, err := strconv.ParseUint(idStr, 10, 64)
-		if err != nil {
-			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, "invalid id", nil))
-			return
-		}
 
 		var req types.UpdatePermissionRequest
 		if err := httpx.Parse(r, &req); err != nil {
@@ -28,7 +22,7 @@ func UpdateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			return
 		}
 
-		permissionDto := dto.PermissionDTO{ID: uint(id)}
+		permissionDto := dto.PermissionDTO{ID: idStr}
 		if req.Name != nil {
 			permissionDto.Name = *req.Name
 		}
@@ -42,7 +36,7 @@ func UpdateHandler(svcCtx servicecontext.ServiceContextInterface) http.HandlerFu
 			permissionDto.Action = *req.Action
 		}
 
-		err = svcCtx.(*svc.ServiceContext).Svc.PermissionService.UpdatePermission(r.Context(), &permissionDto)
+		err := svcCtx.(*svc.ServiceContext).Svc.PermissionService.UpdatePermission(r.Context(), &permissionDto)
 		if err != nil {
 			httpx.WriteJson(w, http.StatusInternalServerError, types.VResponse(http.StatusInternalServerError, err.Error(), nil))
 		} else {

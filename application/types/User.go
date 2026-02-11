@@ -10,14 +10,14 @@ type CreateUserRequest struct {
 	LastName    string     `json:"last_name,optional"`
 	DateOfBirth *time.Time `json:"date_of_birth,optional"`
 	Gender      int32      `json:"gender,optional"` // 1=Male, 2=Female, 3=Other
-	ResourceIDs []uint     `json:"resources,optional"`
+	ResourceIDs []string   `json:"resources,optional"`
 	IsActive    bool       `json:"is_active,optional"`
 	IsSupper    bool       `json:"is_supper,optional"`
-	RoleIDs     []uint     `json:"roles,optional"` // optional list of roles to assign
+	RoleIDs     []string   `json:"roles,optional"` // optional list of roles to assign
 }
 
 type UpdateUserRequest struct {
-	Id          uint       `path:"id,omitempty"`
+	Id          string     `path:"id,omitempty"`
 	FirstName   *string    `json:"first_name,optional"`
 	LastName    *string    `json:"last_name,optional"`
 	DateOfBirth *time.Time `json:"date_of_birth,optional"`
@@ -31,5 +31,5 @@ type UserFilterRequest struct {
 	Search     *string `form:"search" json:"search"` // search by username or email
 	IsActive   *bool   `form:"is_active" json:"is_active"`
 	IsSupper   *bool   `form:"is_supper" json:"is_supper"`
-	ResourceID *uint   `form:"resource_id" json:"resource_id"`
+	ResourceID *string `form:"resource_id" json:"resource_id"`
 }

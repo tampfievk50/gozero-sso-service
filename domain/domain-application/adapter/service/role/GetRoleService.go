@@ -9,6 +9,6 @@ func (l *service) GetAllRoles(ctx context.Context, pager *dto.PagerDto) ([]dto.R
 	return l.rp.RoleRepository.GetAllRoles(ctx, pager)
 }
 
-func (l *service) GetRole(ctx context.Context, id uint) (*dto.RoleDTO, error) {
+func (l *service) GetRole(ctx context.Context, id string) (*dto.RoleDTO, error) {
 	return l.rp.RoleRepository.GetRole(ctx, id)
 }

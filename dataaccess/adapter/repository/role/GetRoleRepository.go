@@ -30,13 +30,13 @@ func (r *repository) GetAllRoles(ctx context.Context, pager *dto.PagerDto) ([]dt
 	return roleDtos, nil
 }
 
-func (r *repository) GetRole(ctx context.Context, id uint) (*dto.RoleDTO, error) {
+func (r *repository) GetRole(ctx context.Context, id string) (*dto.RoleDTO, error) {
 	var (
 		role    model.Role
 		roleDto dto.RoleDTO
 	)
 
-	err := r.db.Connection.First(&role, id).Error
+	err := r.db.Connection.First(&role, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (r *repository) GetRoleByName(ctx context.Context, name string) (*dto.RoleD
 	return &roleDto, nil
 }
 
-func (r *repository) ByIDs(ctx context.Context, ids []uint) ([]dto.RoleDTO, error) {
+func (r *repository) ByIDs(ctx context.Context, ids []string) ([]dto.RoleDTO, error) {
 	var (
 		roles    []model.Role
 		roleDtos []dto.RoleDTO

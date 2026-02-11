@@ -1,17 +1,17 @@
 package types
 
 type UserRoleRequest struct {
-	UserID   uint   `json:"user_id"`
-	RoleID   []uint `json:"roles"`
-	DomainID uint   `json:"domain_id"`
+	UserID   string   `json:"user_id"`
+	RoleID   []string `json:"roles"`
+	DomainID string   `json:"domain_id"`
 }
 
 type AssignRolesRequest struct {
-	RoleIDs  []uint `json:"roles"`
-	DomainID uint   `json:"domain_id"`
+	RoleIDs  []string `json:"roles"`
+	DomainID string   `json:"domain_id"`
 }
 
 type RemoveRoleRequest struct {
-	RoleID   uint `json:"role_id"`
-	DomainID uint `json:"domain_id"`
+	RoleID   string `json:"role_id"`
+	DomainID string `json:"domain_id"`
 }

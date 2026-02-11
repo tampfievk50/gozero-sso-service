@@ -43,8 +43,8 @@ func (l *service) CreateUser(ctx context.Context, userDto *dto.UserDTO) error {
 		log.Printf("[WARN] Could not find default role '%s': %v", defaultRoleName, err)
 		return nil
 	}
-	if err = l.rp.UserRepository.AssignRoles(ctx, userDto.ID, []uint{defaultRole.ID}, 0); err != nil {
-		log.Printf("[WARN] Could not assign default role to user %d: %v", userDto.ID, err)
+	if err = l.rp.UserRepository.AssignRoles(ctx, userDto.ID, []string{defaultRole.ID}, "0"); err != nil {
+		log.Printf("[WARN] Could not assign default role to user %s: %v", userDto.ID, err)
 	}
 
 	return nil

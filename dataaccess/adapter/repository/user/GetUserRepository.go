@@ -28,14 +28,14 @@ func (r *repository) GetAllUsers(ctx context.Context, pager *dto.PagerDto) ([]dt
 	return userDtos, nil
 }
 
-func (r *repository) GetUser(ctx context.Context, id *uint) (*dto.UserDTO, error) {
+func (r *repository) GetUser(ctx context.Context, id string) (*dto.UserDTO, error) {
 	var (
 		user    model.User
 		userDto dto.UserDTO
 	)
 
 	err := r.db.Connection.
-		First(&user, *id).Error
+		First(&user, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}

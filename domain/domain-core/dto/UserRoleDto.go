@@ -1,7 +1,7 @@
 package dto
 
 type UserRoleDto struct {
-	UserID     int `json:"user_id"`
-	RoleID     int `json:"role_id"`
-	ResourceID int `json:"resource_id"`
+	UserID     string `json:"user_id"`
+	RoleID     string `json:"role_id"`
+	ResourceID string `json:"resource_id"`
 }

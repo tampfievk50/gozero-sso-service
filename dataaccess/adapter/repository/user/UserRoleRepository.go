@@ -8,13 +8,13 @@ import (
 
 // roleWithResource is a scan target that captures both role fields and the resource_id from user_role
 type roleWithResource struct {
-	ID          uint   `gorm:"column:id"`
+	ID          string `gorm:"column:id"`
 	Name        string `gorm:"column:name"`
 	Description string `gorm:"column:description"`
-	ResourceID  uint   `gorm:"column:resource_id"`
+	ResourceID  string `gorm:"column:resource_id"`
 }
 
-func (r *repository) GetUserRoles(ctx context.Context, userId uint) ([]dto.RoleDTO, error) {
+func (r *repository) GetUserRoles(ctx context.Context, userId string) ([]dto.RoleDTO, error) {
 	var rows []roleWithResource
 
 	err := r.db.Connection.
@@ -40,7 +40,7 @@ func (r *repository) GetUserRoles(ctx context.Context, userId uint) ([]dto.RoleD
 	return roleDtos, nil
 }
 
-func (r *repository) AssignRoles(ctx context.Context, userId uint, roleIDs []uint, domainID uint) error {
+func (r *repository) AssignRoles(ctx context.Context, userId string, roleIDs []string, domainID string) error {
 	for _, roleID := range roleIDs {
 		userRole := model.UserRole{
 			UserID:     userId,
@@ -58,7 +58,7 @@ func (r *repository) AssignRoles(ctx context.Context, userId uint, roleIDs []uin
 	return nil
 }
 
-func (r *repository) RemoveRole(ctx context.Context, userId uint, roleID uint, domainID uint) error {
+func (r *repository) RemoveRole(ctx context.Context, userId string, roleID string, domainID string) error {
 	return r.db.Connection.
 		Where("user_id = ? AND role_id = ? AND resource_id = ?", userId, roleID, domainID).
 		Delete(&model.UserRole{}).Error

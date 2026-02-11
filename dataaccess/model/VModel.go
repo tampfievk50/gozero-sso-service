@@ -8,13 +8,13 @@ import (
 )
 
 type VModel struct {
-	ID        uint         `gorm:"primarykey" json:"id"`
+	ID        string       `gorm:"type:uuid;default:gen_random_uuid();primarykey" json:"id"`
 	CreatedAt time.Time    `json:"created_at"`
 	UpdatedAt time.Time    `json:"updated_at"`
 	DeletedAt sql.NullTime `gorm:"index" json:"-"`
-	CreatedBy uint         `json:"created_by"`
-	UpdatedBy uint         `json:"updated_by"`
-	DeletedBy uint         `json:"deleted_by"`
+	CreatedBy string       `gorm:"type:uuid" json:"created_by"`
+	UpdatedBy string       `gorm:"type:uuid" json:"updated_by"`
+	DeletedBy string       `gorm:"type:uuid" json:"deleted_by"`
 	IsDeleted bool         `gorm:"index" json:"is_deleted"`
 }
 

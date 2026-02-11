@@ -6,7 +6,6 @@ import (
 	"gozero-sso-service/application/types"
 	"gozero-sso-service/dataaccess/model"
 	"net/http"
-	"strconv"
 
 	"github.com/tampfievk50/gozero-core-api/servicecontext"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -16,11 +15,7 @@ import (
 func UpdateHandler(serverCtx servicecontext.ServiceContextInterface) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := pathvar.Vars(r)
-		id, err := strconv.ParseUint(vars["id"], 10, 64)
-		if err != nil {
-			httpx.WriteJson(w, http.StatusBadRequest, types.VResponse(http.StatusBadRequest, "invalid id", nil))
-			return
-		}
+		id := vars["id"]
 
 		var req struct {
 			Name        *string `json:"name"`

@@ -9,7 +9,7 @@ import (
 func (r *repository) UpdatePermission(ctx context.Context, permissionDto *dto.PermissionDTO) error {
 	var permission model.Permission
 
-	err := r.db.Connection.First(&permission, permissionDto.ID).Error
+	err := r.db.Connection.First(&permission, "id = ?", permissionDto.ID).Error
 	if err != nil {
 		return err
 	}

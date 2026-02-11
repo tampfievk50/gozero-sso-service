@@ -29,13 +29,13 @@ func (r *repository) GetAllPermissions(ctx context.Context, pager *dto.PagerDto)
 	return permissionDtos, nil
 }
 
-func (r *repository) GetPermission(ctx context.Context, id uint) (*dto.PermissionDTO, error) {
+func (r *repository) GetPermission(ctx context.Context, id string) (*dto.PermissionDTO, error) {
 	var (
 		permission    model.Permission
 		permissionDto dto.PermissionDTO
 	)
 
-	err := r.db.Connection.First(&permission, id).Error
+	err := r.db.Connection.First(&permission, "id = ?", id).Error
 	if err != nil {
 		return nil, err
 	}

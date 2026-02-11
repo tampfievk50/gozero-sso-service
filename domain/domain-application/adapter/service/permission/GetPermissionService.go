@@ -9,6 +9,6 @@ func (l *service) GetAllPermissions(ctx context.Context, pager *dto.PagerDto) ([
 	return l.rp.PermissionRepository.GetAllPermissions(ctx, pager)
 }
 
-func (l *service) GetPermission(ctx context.Context, id uint) (*dto.PermissionDTO, error) {
+func (l *service) GetPermission(ctx context.Context, id string) (*dto.PermissionDTO, error) {
 	return l.rp.PermissionRepository.GetPermission(ctx, id)
 }
