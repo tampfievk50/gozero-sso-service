@@ -10,24 +10,27 @@ services:
       - postgres_data:/var/lib/postgresql@16/data
       - ./init:/docker-entrypoint-initdb.d/
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
 
   cms_api:
     image: tampfievk50/lttsale-cms-api:1.0.0
+    pull_policy: always
     container_name: cms_api
     ports:
-      - "8082:8082"
+      - "127.0.0.1:8082:8082"
     volumes:
       - ./etc/cms_api/Main.yaml:/app/application/etc/Main.yaml
       - ./logs:/app/logs
+      - /var/www/lttsale/uploads:/app/uploads
     depends_on:
       - postgres16
 
   sso:
     image: tampfievk50/lttsale-sso:1.0.0
+    pull_policy: always
     container_name: sso
     ports:
-      - "9091:9091"
+      - "127.0.0.1:9091:9091"
     volumes:
       - ./etc/sso/Main.yaml:/app/application/etc/Main.yaml
       - ./logs:/app/logs
