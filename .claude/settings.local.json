@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(PGPASSWORD='altsys@123' psql:*)",
+      "Bash(find:*)",
+      "Bash(go build:*)",
+      "Bash(go vet:*)",
+      "Bash(PGPASSWORD=\"altsys@123\" psql:*)",
+      "Bash(go run:*)",
+      "Bash(psql:*)",
+      "Bash(curl:*)",
+      "Bash(dart run:*)",
+      "Bash(dart --enable-experiment=native-assets run build_runner build --delete-conflicting-outputs)",
+      "Bash(flutter pub run build_runner build:*)",
+      "Bash(flutter build:*)",
+      "Bash(flutter run:*)",
+      "Bash(open:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(pod install:*)",
+      "Bash(sudo /usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate:*)"
+    ]
+  }
+}
