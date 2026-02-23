@@ -26,7 +26,7 @@ Db:
     Host: "localhost"
     Port: "5432"
     Username: "altsys"
-    Password: "altsys@123"
+    Password: "altsys"
     SearchPath: "sso,public"
     TargetSessionAttrs: "primary"
     SSLMode: "disable"
@@ -36,7 +36,7 @@ Db:
     Host: "localhost"
     Port: "5432"
     Username: "altsys"
-    Password: "altsys@123"
+    Password: "altsys"
     SearchPath: "sso,public"
     TargetSessionAttrs: "prefer-standby"
     SSLMode: "disable"
@@ -55,9 +55,9 @@ Db:
 
 Auth:
   AccessSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
-  AccessExpire: 3600
+  AccessExpire: 15552000
   RefreshSecret: ZYG4fONvNSFMvxqi4F68X5a7law0ZvvsgbyWz3ftoWaRgWZgRZWLfZMT00b09GJsgOeiXC5yUk82usRBSXKuo1qnFKop3OLjQeyV
-  RefreshExpire: 15552000
+  RefreshExpire: 31104000
 
 Casx:
   ModelFile: "application/etc/casx/model.casbin.conf"
